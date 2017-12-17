@@ -1,0 +1,130 @@
+﻿@model IPagedList<MyProject.Models.MemberRegistration>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@using MyProject;
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+
+}
+@{clsFunction objcls = new clsFunction(); }
+@if (objcls.Roles() == "A")
+{
+    <div class="panel panel-primary">
+        <div class="panel-header ">
+            <h2><strong>Dashboard</strong></h2>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <i class="fa fa-users fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-7 text-right">
+                                        <div class="huge">@Session["TotalMember"]</div>
+                                        <div>Total Member</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/admin/StudentDetails">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel" style="background-color: rgb(24, 166, 137);">
+                            <div class="panel-heading" style="color: #fff;">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-7 text-right">
+                                        <div class="huge">@ViewBag.TotalCurrentMonthJoining</div>
+                                        <div>Joining In This Month</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/admin/TeacherDetails">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel" style="background-color: rgb(163, 77, 255);">
+                            <div class="panel-heading" style="color: #fff;">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-7 text-right">
+                                        <div class="huge">@ViewBag.exam</div>
+                                        <div>Text</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel" style="background-color: rgb(199, 87, 87);">
+                            <div class="panel-heading" style="color: #fff;">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <i class="fa fa-support fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-7 text-right">
+                                        <div class="huge">@ViewBag.Event</div>
+                                        <div>Text</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/Event/EventList">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("_MemberListForAdmin")
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@*Start User*@
+
+@if(objcls.Roles() == "U")
+{
+    <p>Member Home Page</p>
+}

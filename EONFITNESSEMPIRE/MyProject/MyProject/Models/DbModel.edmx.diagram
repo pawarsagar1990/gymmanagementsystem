@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62c31176af074692be8237d6acd536a5" Name="Diagram1">
+        <EntityTypeShape EntityType="DbGymModel.MemberRegistration" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbGymModel.PackageDetail" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbGymModel.PaymentDetail" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbGymModel.PhysicalAssessment" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbGymModel.TransactionPayment" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbGymModel.UserLogin" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="DbGymModel.FK_MemberRegistration_PackageDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DbGymModel.FK_MemberRegistration_PaymentDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DbGymModel.FK_PhysicalAssessment_MemberRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="DbGymModel.FK_TransactionPayment_MemberRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="DbGymModel.FK_UserLogin_MemberRegistration" ManuallyRouted="false" />
+        <AssociationConnector Association="DbGymModel.FK_TransactionPayment_PaymentDetails" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbGymModel.Andd" Width="1.5" PointX="5.375" PointY="4.375" />
+        <EntityTypeShape EntityType="DbGymModel.Confirm_MemberRegistration" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DbGymModel.GymClose" Width="1.5" PointX="7.375" PointY="4.375" />
+        <AssociationConnector Association="DbGymModel.FK_Confirm_MemberRegistration_PackageDetails" />
+        <AssociationConnector Association="DbGymModel.FK_Confirm_MemberRegistration_PaymentDetails" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

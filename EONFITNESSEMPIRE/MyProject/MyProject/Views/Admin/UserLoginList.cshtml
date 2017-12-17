@@ -1,0 +1,91 @@
+﻿@model IPagedList<MyProject.Models.UserLogin>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
+    ViewBag.Title = "UserLoginList";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+@*@Html.ActionLink("New Member Registration", "MemberListForAdmin", "Admin", new { @class = "btn btn-embossed btn-primary" })*@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+               All User List
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> @Html.DisplayNameFor(model => model.First().Email) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Password)</th>
+                                <th> @Html.DisplayNameFor(model => model.First().Mobile) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().UserRole) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Flag) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().CreatedOn) </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Password)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                    </td>
+                                    <td>
+                                        @{ 
+                                            string role = "";
+                                            if (item.UserRole == "A")
+                                            {
+                                                role = "Admin";
+                                            }
+                                            else if (item.UserRole == "S")
+                                            {
+                                                role = "Staff";
+                                            }
+                                            else if (item.UserRole == "U")
+                                            {
+                                                role = "Member";
+                                            }
+                                        }
+                                        @Html.DisplayFor(modelItem => role)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Flag)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string dateString = String.Format("{0:dd/MM/yyyy}", item.CreatedOn);
+                                        }
+                                        @Html.DisplayFor(modelItem => dateString)
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <abbr title="Edit"><a href="@Url.Action("TeacherEdit", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
+                                            <abbr title="Show Profile"><a href="@Url.Action("SingleTeacher", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
+                                            <abbr title="Delete"><a href="@Url.Action("TeacherDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                        </h4>
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("UserLoginList", new { page }))
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

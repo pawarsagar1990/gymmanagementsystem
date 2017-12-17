@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbGymModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Andd">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GymName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ApplicationEndDate" Type="datetime" />
+    <Property Name="Flag" Type="nvarchar" MaxLength="5" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Confirm_MemberRegistration">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="40" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="DOJ" Type="datetime" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="15" />
+    <Property Name="Employe" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmergencyContactName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmergencyContactNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="Package_ID" Type="int" />
+    <Property Name="Payment_Type_ID" Type="int" />
+    <Property Name="Installment_Method" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfilePic" Type="nvarchar" MaxLength="80" />
+    <Property Name="ConfirmFlag" Type="nvarchar" MaxLength="5" />
+    <Property Name="Flag" Type="nvarchar" MaxLength="5" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="GymClose">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="OnDate" Type="date" />
+    <Property Name="TotalDays" Type="int" />
+    <Property Name="flag" Type="nvarchar" MaxLength="5" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="MemberRegistration">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberName" Type="nvarchar" MaxLength="40" />
+    <Property Name="Email" Type="nvarchar" MaxLength="30" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="DOJ" Type="date" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="Employe" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmergencyContactName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmergencyContactNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="Package_ID" Type="int" />
+    <Property Name="Payment_Type_ID" Type="int" />
+    <Property Name="Installment_Method" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfilePic" Type="nvarchar" MaxLength="80" />
+    <Property Name="Flag" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PackageDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pkg_Month" Type="nvarchar" MaxLength="20" />
+    <Property Name="NumberOfMonth" Type="int" />
+    <Property Name="Pkg_Ammount" Type="nvarchar" MaxLength="10" />
+    <Property Name="Flag" Type="nvarchar" MaxLength="5" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PaymentDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="10" />
+    <Property Name="PaymentAmmount" Type="nvarchar" MaxLength="10" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="Flag" Type="nchar" MaxLength="5" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PhysicalAssessment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberRegistration_PK_ID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Height" Type="nvarchar" MaxLength="10" />
+    <Property Name="Weight" Type="nvarchar" MaxLength="10" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="TransactionPayment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberRegistration_PK_ID" Type="int" />
+    <Property Name="PaymentDetails_PK_ID" Type="int" />
+    <Property Name="Payment_Date" Type="datetime" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="15" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="15" />
+    <Property Name="Paid_Amount" Type="nvarchar" MaxLength="10" />
+    <Property Name="Due_Amount" Type="nvarchar" MaxLength="10" />
+    <Property Name="Total_Payment" Type="nvarchar" MaxLength="10" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="UserLogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserRole" Type="nvarchar" MaxLength="5" />
+    <Property Name="MemberRegistration_PK_ID" Type="int" />
+    <Property Name="Flag" Type="nvarchar" MaxLength="5" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Confirm_MemberRegistration_PackageDetails">
+    <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="0..1" />
+    <End Role="Confirm_MemberRegistration" Type="Self.Confirm_MemberRegistration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PackageDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Confirm_MemberRegistration">
+        <PropertyRef Name="Package_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Confirm_MemberRegistration_PaymentDetails">
+    <End Role="PaymentDetails" Type="Self.PaymentDetails" Multiplicity="0..1" />
+    <End Role="Confirm_MemberRegistration" Type="Self.Confirm_MemberRegistration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Confirm_MemberRegistration">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberRegistration_PackageDetails">
+    <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="0..1" />
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PackageDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MemberRegistration">
+        <PropertyRef Name="Package_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberRegistration_PaymentDetails">
+    <End Role="PaymentDetails" Type="Self.PaymentDetails" Multiplicity="0..1" />
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MemberRegistration">
+        <PropertyRef Name="Payment_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhysicalAssessment_MemberRegistration">
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="0..1" />
+    <End Role="PhysicalAssessment" Type="Self.PhysicalAssessment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberRegistration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PhysicalAssessment">
+        <PropertyRef Name="MemberRegistration_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionPayment_MemberRegistration">
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="0..1" />
+    <End Role="TransactionPayment" Type="Self.TransactionPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberRegistration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionPayment">
+        <PropertyRef Name="MemberRegistration_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionPayment_PaymentDetails">
+    <End Role="PaymentDetails" Type="Self.PaymentDetails" Multiplicity="0..1" />
+    <End Role="TransactionPayment" Type="Self.TransactionPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionPayment">
+        <PropertyRef Name="PaymentDetails_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLogin_MemberRegistration">
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="0..1" />
+    <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberRegistration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserLogin">
+        <PropertyRef Name="MemberRegistration_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbGymModelStoreContainer">
+    <EntitySet Name="Andd" EntityType="Self.Andd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Confirm_MemberRegistration" EntityType="Self.Confirm_MemberRegistration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GymClose" EntityType="Self.GymClose" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MemberRegistration" EntityType="Self.MemberRegistration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PackageDetails" EntityType="Self.PackageDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhysicalAssessment" EntityType="Self.PhysicalAssessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionPayment" EntityType="Self.TransactionPayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Confirm_MemberRegistration_PackageDetails" Association="Self.FK_Confirm_MemberRegistration_PackageDetails">
+      <End Role="PackageDetails" EntitySet="PackageDetails" />
+      <End Role="Confirm_MemberRegistration" EntitySet="Confirm_MemberRegistration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Confirm_MemberRegistration_PaymentDetails" Association="Self.FK_Confirm_MemberRegistration_PaymentDetails">
+      <End Role="PaymentDetails" EntitySet="PaymentDetails" />
+      <End Role="Confirm_MemberRegistration" EntitySet="Confirm_MemberRegistration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberRegistration_PackageDetails" Association="Self.FK_MemberRegistration_PackageDetails">
+      <End Role="PackageDetails" EntitySet="PackageDetails" />
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberRegistration_PaymentDetails" Association="Self.FK_MemberRegistration_PaymentDetails">
+      <End Role="PaymentDetails" EntitySet="PaymentDetails" />
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhysicalAssessment_MemberRegistration" Association="Self.FK_PhysicalAssessment_MemberRegistration">
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+      <End Role="PhysicalAssessment" EntitySet="PhysicalAssessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionPayment_MemberRegistration" Association="Self.FK_TransactionPayment_MemberRegistration">
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+      <End Role="TransactionPayment" EntitySet="TransactionPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionPayment_PaymentDetails" Association="Self.FK_TransactionPayment_PaymentDetails">
+      <End Role="PaymentDetails" EntitySet="PaymentDetails" />
+      <End Role="TransactionPayment" EntitySet="TransactionPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLogin_MemberRegistration" Association="Self.FK_UserLogin_MemberRegistration">
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+      <End Role="UserLogin" EntitySet="UserLogin" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

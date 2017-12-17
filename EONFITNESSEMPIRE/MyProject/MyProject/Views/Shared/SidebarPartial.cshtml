@@ -1,0 +1,15 @@
+﻿@if (User.IsInRole("A"))
+{
+    <li><a href="/admin/home"><i class="icon-home"></i><span>Dashboard</span></a></li>
+    <li><a href="/admin/MemberListForAdmin"><i class="icon-users"></i><span>Member List</span></a></li>
+    <li><a href="/admin/MemberRegistration"><i class="icon-users"></i><span>Member Registration</span></a></li>
+    <li><a href="/admin/UserLoginList"><i class="icon-users"></i><span>User Login List</span></a></li>
+}
+else if (User.IsInRole("U"))
+{
+    <li><a href="/admin/studentdetails"><i class="icon-users"></i><span>Students</span></a></li>
+}
+else if (User.IsInRole("S"))
+{
+    <li><a href="/admin/MemberRegistration"><i class="icon-users"></i><span>Member Registration</span></a></li>
+}

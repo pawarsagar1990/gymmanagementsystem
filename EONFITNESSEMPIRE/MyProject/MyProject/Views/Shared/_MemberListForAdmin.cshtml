@@ -1,0 +1,73 @@
+﻿@model IPagedList<MyProject.Models.MemberRegistration>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@Html.ActionLink("New Member Registration", "MemberRegistration", "Admin", new { @class = "btn btn-embossed btn-primary" })
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Member List
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>
+                        <th> @Html.DisplayNameFor(model => model.First().Email)</th>
+                        <th> @Html.DisplayNameFor(model => model.First().DOJ) </th>
+                        <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
+                        <th> @Html.DisplayNameFor(model => model.First().City) </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    var images = @Url.Content("~/Images/ProfilePic/" + item.ProfilePic);
+
+                                }
+                                <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
+                                @Html.DisplayFor(modelItem => item.MemberName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @{
+                                    string dateString = String.Format("{0:dd/MM/yyyy}", item.DOJ);
+                                }
+                                @Html.DisplayFor(modelItem => dateString)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNumber)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+
+                            <td>
+                                <h4>
+                                    <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
+                                    <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
+                                    <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                </h4>
+                            </td>
+                        </tr>
+                     }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin", new { page }))
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+</div>
+
+
+
+           
+   

@@ -1,0 +1,150 @@
+﻿@model MyProject.Models.MemberRegistration
+
+@{
+    ViewBag.Title = "MemberProfileDetails";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<html lang="en">
+<head>
+
+    <title>Member Registration</title>
+   
+
+</head>
+<body>
+    @using (Html.BeginForm("MemberRegistration", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @ViewBag.Message
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                       
+                        <div class="row">
+                            <div class="col-md-4"><strong style="font-size: 20px;">Profile</strong></div> @*padding-left:318px;  padding-left:415px;*@
+                            <div class="col-md-4"><strong style="font-size: 20px;"> Remaining Days:  @ViewBag.date </strong></div>
+                            <div class="col-md-4">
+                                @{ string status = "";
+                                    if (ViewBag.date != null)
+                                    {
+                                        if (ViewBag.date == 0)
+                                        { status = "Deactive";  <strong style="color:red;font-size: 20px;">@status</strong> }
+                                        else
+                                        { status = "Active";  <strong style="color:cornflowerblue;font-size: 20px;">@status</strong> }
+                                    }
+                                }
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table table-striped"> 
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Name:</strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.MemberName)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Mobile No.:</strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.MobileNumber)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Email:</strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.Email)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Date of Birth:</strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.DOB)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Date of Joining:</strong></td>
+                                        <td>@Html.DisplayFor(model => model.DOJ)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Emergency Contact Name:     </strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.EmergencyContactName)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Emergency Contac tNumber:    </strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.EmergencyContactNumber)</td>
+                                    </tr>
+                                    @*<p style="font-size:20px;"><strong>Email:</strong>  @Html.DisplayFor(model => model.Flag = YES ? YES : NO)</p>*@
+                                </table>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                @{
+                                    string imgname = Model.ProfilePic;
+                                    var images = @Url.Content("~/Images/ProfilePic/" + imgname);
+
+                                }<img src="@images" style="height:200px; width:250px;" class="img-responsive"/>
+                                <table class="table table-striped" style="margin-top: 28px;">
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Status:</strong></td>
+                                        <td>@Html.DisplayFor(model => model.Flag)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-striped">
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Gender:</strong></td>
+                                        <td style="padding-right: 143px;">@Html.DisplayFor(model => model.Gender)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Installment Method:</strong></td>
+                                        <td style="padding-right:98px;">@Html.DisplayFor(model => model.Installment_Method)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Package Month:</strong></td>
+                                        <td style="padding-right:98px;">@Html.DisplayFor(model => model.PackageDetail.Pkg_Month)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong>Total Amount:</strong></td>
+                                        <td style="padding-right: 143px;">@Html.DisplayFor(model => model.PackageDetail.Pkg_Ammount)</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-striped">
+                                    <tr style="font-size:15px;">
+                                        <td style=""><strong>Address:</strong></td>
+                                        <td>@Html.DisplayFor(model => model.Address)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong></strong></td>
+                                        <td style="padding-right:220px;">@Html.DisplayFor(model => model.City)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong></strong></td>
+                                        <td>@Html.DisplayFor(model => model.ZipCode)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
+                                        <td><strong></strong></td>
+                                        <td>@Html.DisplayFor(model => model.State)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    }
+</body>
+</html>
+
+
+
