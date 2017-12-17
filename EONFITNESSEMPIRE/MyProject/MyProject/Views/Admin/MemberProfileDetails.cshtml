@@ -35,7 +35,7 @@
                                 @{ string status = "";
                                     if (ViewBag.date != null)
                                     {
-                                        if (ViewBag.date == 0)
+                                        if (ViewBag.date < 0)
                                         { status = "Deactive";  <strong style="color:red;font-size: 20px;">@status</strong> }
                                         else
                                         { status = "Active";  <strong style="color:cornflowerblue;font-size: 20px;">@status</strong> }

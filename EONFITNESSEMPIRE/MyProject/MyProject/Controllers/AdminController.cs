@@ -293,17 +293,6 @@ namespace MyProject.Controllers
                 throw;
             }
         }
-        public ActionResult RegistrationByMember()
-        {
-            try
-            {
-                return View();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+       
     }
 }
