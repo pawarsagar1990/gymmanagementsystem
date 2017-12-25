@@ -1014,7 +1014,6 @@
     <Content Include="assets\global\images\layouts\submenu-hover.jpg" />
     <Content Include="assets\global\images\layouts\topbar-fixed.jpg" />
     <Content Include="assets\global\images\layouts\topbar-fluid.jpg" />
-    <Content Include="assets\global\images\logo\logo-white.png" />
     <Content Include="assets\global\images\logo\themeforest.png" />
     <Content Include="assets\global\images\logo\themes-lab.png" />
     <Content Include="assets\global\images\modals\._basic.png" />
