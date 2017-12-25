@@ -22,6 +22,7 @@
     <link href="../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="../assets/global/plugins/rateit/rateit.css" rel="stylesheet">
     <script src="../assets/global/plugins/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
 </head> 
 
 <body class="fixed-topbar fixed-sidebar theme-sdtl color-default">
@@ -60,24 +61,21 @@
                 <div class="topnav">
                     <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
                     <ul class="nav nav-icons">
-                       
-                                <li>
-                                    @{
-                                        var images = @Url.Content("~/Images/ProfilePic/" + Session["ProfilePic"]);
-
-                                    }
-                                    <img src="@images" style="height:30px; width:30px;" class="img-circle special-img" />
-                                </li>
-                                <li class="toggle-sidebar-top" style="font-size:16px;">
-                                    @{ @Session["UserName"] }
-                                </li>
-                                <li class="toggle-sidebar-top"><a href="/admin/Logout">
-                               Sign Out</a></li>
-                            </ul>
-                        </div>
-</div>
+                    </ul>
+                </div>
+            </div>
             <div class="header-right">
-                <ul class="header-menu nav navbar-nav">
+                <ul class="header-menu nav navbar-nav" style="font-size: 15px;">
+                    <li class="toggle-sidebar-top" style="margin-top: 10px;">
+                        @{
+                            var images = @Url.Content("~/Images/ProfilePic/" + Session["ProfilePic"]);
+                        }
+                        <img src="@images" style="height:30px; width:30px;" class="img-circle special-img" alt="user image"/>
+                        <span class="username">@{ @Session["UserName"] }</span>
+                     </li>
+                    <li class="toggle-sidebar-top">
+                        <a href="/admin/Logout"><span style="color: black;">Sign Out</span> </a>
+                    </li>
                 </ul>
             </div>
             <!-- header-right -->

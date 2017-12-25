@@ -14,6 +14,20 @@ namespace MyProject
             List<MemberRegistration> mr = db.MemberRegistrations.ToList();
             return mr;
         }
+        public IEnumerable<Confirm_MemberRegistration> VerifictionRemainList()
+        {            
+            string FlagNO = "WATING";
+            try
+            { 
+                List<Confirm_MemberRegistration> NotConfirm = db.Confirm_MemberRegistration.Where(m => m.ConfirmFlag.Equals(FlagNO)).ToList();
+                return NotConfirm;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public int RemainsDays(int id)
         {
             int days = 0;

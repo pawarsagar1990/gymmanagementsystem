@@ -35,10 +35,10 @@
     {
         @Html.AntiForgeryToken()
 
-        if (ViewBag.Message != null)
+        if (ViewBag.verification != null)
         {
             <div class="alert alert-success" role="alert">
-                @ViewBag.Message
+                @ViewBag.verification
             </div>
         }
         <div class="row">

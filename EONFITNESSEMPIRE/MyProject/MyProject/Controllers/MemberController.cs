@@ -13,8 +13,7 @@ namespace MyProject.Controllers
 {
     public class MemberController : Controller
     {
-        //
-        // GET: /Member/
+        clsFunction objcls = new clsFunction();
         DbGymEntities db = new DbGymEntities();
         public ActionResult RegistrationByMember()
         {
@@ -46,12 +45,14 @@ namespace MyProject.Controllers
                 {
                     throw;
                 }
+                data.ConfirmFlag = "WATING";
                 data.ProfilePic = fname;
                 DateTime dt = DateTime.Now;
                 data.CreatedOn = dt;
                 data.CreatedBy = "Admin";//Session["UserName"].ToString();
                 db.Confirm_MemberRegistration.Add(data);
                 db.SaveChanges();
+                ViewBag.verification = "Registration Done. Please Contact to administrator!!!";
                 return View();
             }
             catch (Exception)
@@ -60,6 +61,32 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+        public ActionResult VerifictionRemainList(int? page)
+        {
+            try
+            {
+                return View((objcls.VerifictionRemainList()).ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public ActionResult NotConfirm(int id)
+        {
+            try
+            {
+                Confirm_MemberRegistration cm = db.Confirm_MemberRegistration.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                cm.ConfirmFlag = "NO";
+                db.Entry(cm).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Home","Admin");
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberName" Type="nvarchar" MaxLength="40" />
           <Property Name="Email" Type="nvarchar" MaxLength="30" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -38,7 +38,7 @@
           <Property Name="Payment_Type_ID" Type="int" />
           <Property Name="Installment_Method" Type="nvarchar" MaxLength="50" />
           <Property Name="ProfilePic" Type="nvarchar" MaxLength="80" />
-          <Property Name="ConfirmFlag" Type="nvarchar" MaxLength="5" />
+          <Property Name="ConfirmFlag" Type="nvarchar" MaxLength="10" />
           <Property Name="Flag" Type="nvarchar" MaxLength="5" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
@@ -554,7 +554,7 @@
           <Property Name="Payment_Type_ID" Type="Int32" />
           <Property Name="Installment_Method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProfilePic" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ConfirmFlag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmFlag" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Flag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

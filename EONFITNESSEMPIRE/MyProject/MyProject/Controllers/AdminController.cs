@@ -61,7 +61,7 @@ namespace MyProject.Controllers
                 if (userrole == "A")
                 {
                     ViewBag.TotalCurrentMonthJoining = objcls.TotalCurrentMonthJoining();
-                    return View((objcls.MemberListData()).ToPagedList(page ?? 1, 10));
+                    return View((objcls.VerifictionRemainList()).ToPagedList(page ?? 1, 10));
                     //return PartialView("_MemberListForAdmin", (objcls.MemberListData()).ToPagedList(page ?? 1, 10));
                 }
                 if (userrole == "U")

@@ -136,6 +136,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="clsFunction.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="CustomRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -361,8 +362,6 @@
     <Content Include="assets\global\css\style.css" />
     <Content Include="assets\global\css\theme.css" />
     <Content Include="assets\global\css\ui.css" />
-    <Content Include="assets\global\images\._favicon.png" />
-    <Content Include="assets\global\images\._gradient-big.png" />
     <Content Include="assets\global\images\avatars\._avatar1%402x.png" />
     <Content Include="assets\global\images\avatars\._avatar1.png" />
     <Content Include="assets\global\images\avatars\._avatar10%402x.png" />
@@ -1015,11 +1014,6 @@
     <Content Include="assets\global\images\layouts\submenu-hover.jpg" />
     <Content Include="assets\global\images\layouts\topbar-fixed.jpg" />
     <Content Include="assets\global\images\layouts\topbar-fluid.jpg" />
-    <Content Include="assets\global\images\logo\._logo-dark.png" />
-    <Content Include="assets\global\images\logo\._logo-white.png" />
-    <Content Include="assets\global\images\logo\._themeforest.png" />
-    <Content Include="assets\global\images\logo\._themes-lab.png" />
-    <Content Include="assets\global\images\logo\logo-dark.png" />
     <Content Include="assets\global\images\logo\logo-white.png" />
     <Content Include="assets\global\images\logo\themeforest.png" />
     <Content Include="assets\global\images\logo\themes-lab.png" />
@@ -8693,20 +8687,6 @@
     <Content Include="assets\global\css\less\ui\tab.less" />
     <Content Include="assets\global\css\less\ui\table.less" />
     <Content Include="assets\global\css\less\variable.less" />
-    <Content Include="assets\global\images\._avatars" />
-    <Content Include="assets\global\images\._clock" />
-    <Content Include="assets\global\images\._flags" />
-    <Content Include="assets\global\images\._gallery" />
-    <Content Include="assets\global\images\._layouts" />
-    <Content Include="assets\global\images\._logo" />
-    <Content Include="assets\global\images\._magnifier.svg" />
-    <Content Include="assets\global\images\._modals" />
-    <Content Include="assets\global\images\._preloader" />
-    <Content Include="assets\global\images\._profil_page" />
-    <Content Include="assets\global\images\._shopping" />
-    <Content Include="assets\global\images\._social" />
-    <Content Include="assets\global\images\._various" />
-    <Content Include="assets\global\images\._widgets" />
     <Content Include="assets\global\images\gallery\._1" />
     <Content Include="assets\global\images\gallery\._2" />
     <Content Include="assets\global\images\gallery\._3" />
@@ -10398,7 +10378,9 @@
     <Content Include="Views\Admin\PackageEntry.cshtml" />
     <Content Include="Views\Admin\MemberEditData.cshtml" />
     <Content Include="Views\Shared\_MemberListForAdmin.cshtml" />
-    <Content Include="Views\Admin\RegistrationByMember.cshtml" />
+    <Content Include="Views\Member\RegistrationByMember.cshtml" />
+    <Content Include="Views\Member\VerifictionRemainList.cshtml" />
+    <Content Include="Views\Shared\VerificationListForHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

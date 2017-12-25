@@ -1,4 +1,4 @@
-﻿@model IPagedList<MyProject.Models.MemberRegistration>
+﻿@model IPagedList<MyProject.Models.Confirm_MemberRegistration>
 @using PagedList
 @using PagedList.Mvc
 @using MyProject.Models
@@ -27,7 +27,6 @@
                             <td>
                                 @{
                                     var images = @Url.Content("~/Images/ProfilePic/" + item.ProfilePic);
-
                                 }
                                 <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
                                 @Html.DisplayFor(modelItem => item.MemberName)
@@ -51,23 +50,18 @@
 
                             <td>
                                 <h4>
-                                    <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
-                                    <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
-                                    <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Confirm","A", "Admin", new { @id = item.ID },  new { @class = "btn btn-embossed btn-primary" , @onclick = "return confirm('Do you really want to delete the tag " + item.ID + "?')" })</abbr>
+                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Not Now", "NotConfirm", "Member", new { @id = item.ID }, new { @class = "btn btn-embossed btn-primary", @onclick = "return confirm('Do you really want to delete the tag " + item.ID + "?')" })</abbr>
                                 </h4>
                             </td>
                         </tr>
-                     }
+                  }
                 </tbody>
             </table>
-            @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin","Admin", new { page }))
+            @Html.PagedListPager(Model, page => Url.Action("Home","Admin", new { page }))
         </div>
         <!-- /.table-responsive -->
     </div>
     <!-- /.panel-body -->
 </div>
 
-
-
-           
-   

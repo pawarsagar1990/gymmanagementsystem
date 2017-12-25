@@ -258,7 +258,7 @@
     <Property Name="Payment_Type_ID" Type="Int32" />
     <Property Name="Installment_Method" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfilePic" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-    <Property Name="ConfirmFlag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="ConfirmFlag" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
     <Property Name="Flag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
