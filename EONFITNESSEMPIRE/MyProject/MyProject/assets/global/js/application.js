@@ -320,16 +320,16 @@ function handleSidebarHide() {
             $(this).text('Show user & search');
         }
     });
-    $('.topbar').on('click', '.toggle-sidebar-top', function(e) {
-        e.preventDefault();
-        $('.sidebar .sidebar-top').slideToggle(300);
-        if ($('.toggle-sidebar-top span').hasClass('icon-user-following')) {
-            $('.toggle-sidebar-top span').removeClass('icon-user-following').addClass('icon-user-unfollow');
-        }
-        else {
-            $('.toggle-sidebar-top span').removeClass('icon-user-unfollow').addClass('icon-user-following');
-        }
-    });
+    //$('.topbar').on('click', '.toggle-sidebar-top', function(e) {
+    //    e.preventDefault();
+    //    $('.sidebar .sidebar-top').slideToggle(300);
+    //    if ($('.toggle-sidebar-top span').hasClass('icon-user-following')) {
+    //        $('.toggle-sidebar-top span').removeClass('icon-user-following').addClass('icon-user-unfollow');
+    //    }
+    //    else {
+    //        $('.toggle-sidebar-top span').removeClass('icon-user-unfollow').addClass('icon-user-following');
+    //    }
+    //});
 }
 
 /* Change statut of user in sidebar: available, busy, away, invisible */
