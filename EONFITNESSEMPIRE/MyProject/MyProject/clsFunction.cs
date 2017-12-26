@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MyProject.Models;
+using System.Data;
 
 namespace MyProject
 {
@@ -112,6 +113,60 @@ namespace MyProject
                 throw;
             }
            
+        }
+        public string MemberRgistrationConfirm(int id)
+        {
+            string result = "Registration Successfully Done!!!";
+            try
+            {
+                Confirm_MemberRegistration cmr = db.Confirm_MemberRegistration.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                //DataTable dt = new DataTable();
+                //dt.Rows.Add(cmr);
+                MemberRegistration mr = new MemberRegistration();
+                mr.MemberName = cmr.MemberName;
+                mr.Email = cmr.Email;
+                mr.Password = cmr.Password;
+                mr.DOJ = cmr.DOJ;
+                mr.DOB = cmr.DOB;
+                mr.Gender = cmr.Gender;
+                mr.Address = cmr.Address;
+                mr.City = cmr.City;
+                mr.State = cmr.State;
+                //  mr.Employe = cmr.Employe;
+                mr.ZipCode = cmr.ZipCode;
+                mr.EmergencyContactName = cmr.EmergencyContactName;
+                mr.EmergencyContactNumber = cmr.EmergencyContactNumber;
+                mr.MobileNumber = cmr.MobileNumber;
+                mr.Package_ID = cmr.Package_ID;
+                mr.Payment_Type_ID = cmr.Payment_Type_ID;
+                mr.Installment_Method = cmr.Installment_Method;
+                mr.ProfilePic = cmr.ProfilePic;
+                mr.Flag = cmr.Flag;
+                mr.CreatedOn = cmr.CreatedOn;
+                mr.CreatedBy = cmr.CreatedBy;
+                string email = mr.Email;
+                string number = mr.MobileNumber;
+                db.MemberRegistrations.Add(mr);
+                db.SaveChanges();
+                MemberRegistration data = db.MemberRegistrations.Where(m => m.Email.Equals(email) && m.MobileNumber.Equals(number)).FirstOrDefault();
+                
+                UserLogin us = new UserLogin();
+                us.MemberRegistration_PK_ID = data.ID;
+                us.Email = data.Email;
+                us.Password = data.Password;
+                us.Mobile = data.MobileNumber;
+                us.UserRole = "U";
+                us.Flag = data.Flag;
+                us.CreatedOn = DateTime.Now;
+                us.CreatedBy = "";
+                db.UserLogins.Add(us);
+                db.SaveChanges();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

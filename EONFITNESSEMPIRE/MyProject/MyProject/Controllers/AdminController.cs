@@ -293,6 +293,22 @@ namespace MyProject.Controllers
                 throw;
             }
         }
-       
+       public ActionResult MemberRgistrationIfConfirm(int id)
+        {
+            try
+            {
+                Session["msg"] = objcls.MemberRgistrationConfirm(id);
+                Confirm_MemberRegistration cm = db.Confirm_MemberRegistration.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                cm.ConfirmFlag = "YES";
+                db.Entry(cm).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Home","Admin");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -50,8 +50,8 @@
 
                             <td>
                                 <h4>
-                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Confirm","A", "Admin", new { @id = item.ID },  new { @class = "btn btn-embossed btn-primary" , @onclick = "return confirm('Do you really want to delete the tag " + item.ID + "?')" })</abbr>
-                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Not Now", "NotConfirm", "Member", new { @id = item.ID }, new { @class = "btn btn-embossed btn-primary", @onclick = "return confirm('Do you really want to delete the tag " + item.ID + "?')" })</abbr>
+                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Confirm", "MemberRgistrationIfConfirm", "Admin", new { @id = item.ID },  new { @class = "btn btn-embossed btn-primary" , @onclick = "return confirm('Do you really want to confirm member" + item.ID + "?')" })</abbr>
+                                    <abbr title="Edit '@item.MemberName'">@Html.ActionLink("Not Now", "NotConfirm", "Member", new { @id = item.ID }, new { @class = "btn btn-embossed btn-primary", @onclick = "return confirm('Do you really want to Member has wait for registration" + item.ID + "?')" })</abbr>
                                 </h4>
                             </td>
                         </tr>
