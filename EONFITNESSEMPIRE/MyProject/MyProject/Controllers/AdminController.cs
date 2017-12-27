@@ -308,8 +308,25 @@ namespace MyProject.Controllers
         {
             try
             {
+                // if (mr.Flag == "YES") { mr.Flag = "YES"; } else { mr.Flag = "NO"; }
                 PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(id)).FirstOrDefault();
                 return View(pd);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult PackageDataEdit(PackageDetail pd)
+        {
+            try
+            {
+                if (pd.Flag == "YES") { pd.Flag = "YES"; } else { pd.Flag = "NO"; }
+                db.Entry(pd).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return View();
             }
             catch (Exception)
             {
