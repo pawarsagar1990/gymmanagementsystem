@@ -10380,6 +10380,8 @@
     <Content Include="Views\Member\RegistrationByMember.cshtml" />
     <Content Include="Views\Member\VerifictionRemainList.cshtml" />
     <Content Include="Views\Shared\VerificationListForHomePage.cshtml" />
+    <Content Include="Views\Shared\BasicMaster.cshtml" />
+    <Content Include="Views\Admin\ForgetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

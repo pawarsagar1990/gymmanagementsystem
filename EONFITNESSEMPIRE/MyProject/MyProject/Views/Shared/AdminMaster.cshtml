@@ -26,7 +26,7 @@
 </head> 
 
 <body class="fixed-topbar fixed-sidebar theme-sdtl color-default">
-
+   
 
     <!-- BEGIN SIDEBAR -->
     <div class="sidebar">
@@ -65,41 +65,32 @@
                 </div>
             </div>
             <div class="header-right">
-                <ul class="header-menu nav navbar-nav" style="font-size: 15px;">
-                    <li class="toggle-sidebar-top" style="margin-top: 10px;">
-                        @{
-                            var images = @Url.Content("~/Images/ProfilePic/" + Session["ProfilePic"]);
-                        }
-                        <img src="@images" style="height:30px; width:30px;" class="img-circle special-img" alt="user image"/>
-                        <span class="username">@{ @Session["UserName"] }</span>
-                     </li>
-                    <li class="toggle-sidebar-top">
-                        <a href="/admin/Logout"><span style="color: black;">Sign Out</span> </a>
-                    </li>
-                </ul>
+               @{
+                   if (Session["ID"] != null)
+                   {
+                        <ul class="header-menu nav navbar-nav" style="font-size: 15px;">
+                            <li class="toggle-sidebar-top" style="margin-top: 10px;">
+                                @{
+                                    var images = @Url.Content("~/Images/ProfilePic/" + Session["ProfilePic"]);
+                                }
+                                <img src="@images" style="height:30px; width:30px;" class="img-circle special-img" alt="user image" />
+                                <span class="username">@{ @Session["UserName"] }</span>
+                            </li>
+                            <li class="toggle-sidebar-top">
+                                <a href="/admin/Logout"><span style="color: black;">Sign Out</span> </a>
+                            </li>
+                        </ul>
+                 } }
             </div>
             <!-- header-right -->
-        </div>
+        </div> 
         <!-- END TOPBAR -->
         <!-- BEGIN PAGE CONTENT -->
 
-        @*<div class="header">*@
-        @*<h2><strong>Blank</strong> Page</h2>*@
-        @*<div class="breadcrumb-wrapper">
-              <ol class="breadcrumb">
-                <li><a href="dashboard.html">Make</a>
-                </li>
-                <li><a href="#">Pages</a>
-                </li>
-                <li class="active">Dashboard</li>
-              </ol>
-            </div>*@
-        @*   <hr />*@
         <div class="page-content">
             @RenderBody()
         </div>
 
-        @*<hr />*@
 
         <div class="footer">
             <div class="copyright">

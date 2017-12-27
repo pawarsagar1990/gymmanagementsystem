@@ -310,5 +310,17 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+        public ActionResult ForgetPassword()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
     }
 }

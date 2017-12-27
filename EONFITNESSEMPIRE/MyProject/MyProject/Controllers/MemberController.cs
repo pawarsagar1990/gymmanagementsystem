@@ -84,7 +84,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
