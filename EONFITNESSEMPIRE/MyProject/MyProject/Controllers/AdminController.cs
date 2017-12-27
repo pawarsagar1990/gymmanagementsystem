@@ -213,7 +213,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -293,6 +292,31 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+        public ActionResult PackageListForAdmin(int? page)
+        {
+            try
+            {
+                return View((objcls.PkgListAdmin()).ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public ActionResult PackageDataEdit(int id)
+        {
+            try
+            {
+                PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                return View(pd);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
        public ActionResult MemberRgistrationIfConfirm(int id)
         {
             try
@@ -314,7 +338,7 @@ namespace MyProject.Controllers
         {
             try
             {
-                return View();
+                return RedirectToAction("Login","Admin");
             }
             catch (Exception)
             {

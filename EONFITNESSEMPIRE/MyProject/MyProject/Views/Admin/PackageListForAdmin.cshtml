@@ -1,0 +1,61 @@
+﻿@model IPagedList<MyProject.Models.PackageDetail>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
+    ViewBag.Title = "PackageListForAdmin";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Package Details
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> @Html.DisplayNameFor(model => model.First().NumberOfMonth) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Pkg_Ammount)</th>
+                                <th> @Html.DisplayNameFor(model => model.First().CreatedOn) </th>                               
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NumberOfMonth) - @Html.DisplayFor(modelItem => item.Pkg_Month)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Pkg_Ammount)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string dateString = String.Format("{0:dd/MM/yyyy}", item.CreatedOn);
+                                        }
+                                        @Html.DisplayFor(modelItem => dateString)
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <abbr title="Details"><a href="@Url.Action("PackageDataEdit", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
+                                            <abbr title="Delete"><a href="@Url.Action("PackageDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                        </h4>
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("PackageListForAdmin", new { page }))
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

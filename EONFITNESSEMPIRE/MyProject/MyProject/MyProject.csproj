@@ -10382,6 +10382,8 @@
     <Content Include="Views\Shared\VerificationListForHomePage.cshtml" />
     <Content Include="Views\Shared\BasicMaster.cshtml" />
     <Content Include="Views\Admin\ForgetPassword.cshtml" />
+    <Content Include="Views\Admin\PackageListForAdmin.cshtml" />
+    <Content Include="Views\Admin\PackageDataEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

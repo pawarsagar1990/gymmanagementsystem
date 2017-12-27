@@ -1,0 +1,57 @@
+﻿@model MyProject.Models.PackageDetail
+@{
+    ViewBag.Title = "PackageDataEdit";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-header">
+                    <h2><strong>Package Entry</strong></h2>
+                </div>
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Number of Month</label>
+                                <input class="form-control" name="Pkg_Month" id="Pkg_Month" value="@Html.Raw(Html.AttributeEncode(Model.Pkg_Month))" placeholder="Enter MemberName">
+                                @Html.ValidationMessageFor(m => m.Pkg_Month, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Package Ammount</label>
+                                <input class="form-control" name="Pkg_Ammount" value="@Html.Raw(Html.AttributeEncode(Model.Pkg_Ammount))" id="Pkg_Ammount" placeholder="Enter MemberName">
+                                @Html.ValidationMessageFor(m => m.Pkg_Ammount, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Status</label>
+                                <input class="form-control" name="Flag" value="YES" id="Flag" type="checkbox">
+                                @Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-embossed btn-primary">Save</button>
+                                <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+

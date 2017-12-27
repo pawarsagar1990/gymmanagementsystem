@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/BasicMaster.cshtml";
 
 }
-
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                                     <div class="account-wall">
                                         <i class="user-img icons-faces-users-03"></i>
@@ -29,4 +31,5 @@
                                         </div>
                                     </div>
                </div>
-            
+
+}

@@ -10,6 +10,18 @@ namespace MyProject
     public class clsFunction
     {
         DbGymEntities db = new DbGymEntities();
+        public IEnumerable<PackageDetail> PkgListAdmin()
+        {
+            try
+            {
+                List<PackageDetail> pd = db.PackageDetails.ToList();
+                return pd;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public IEnumerable<MemberRegistration> MemberListData()
         {
             List<MemberRegistration> mr = db.MemberRegistrations.ToList();
