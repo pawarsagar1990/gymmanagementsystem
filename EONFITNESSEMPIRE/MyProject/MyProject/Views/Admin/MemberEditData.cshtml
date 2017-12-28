@@ -103,9 +103,11 @@
                                                 @Html.ValidationMessageFor(m => m.DOJ, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
+                                        @{ 
+                                            string status = (Model.Flag == "YES" ? "checked" : "");
+                                        }
                                         <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <input class="form-control" name="Flag" value="@Html.Raw(Html.AttributeEncode(Model.Flag))" id="Flag" type="checkbox">
+                                            <label class="control-label">Status <input name="Flag" value="YES" id="Flag" type="checkbox" style="width: 50px;height: 20px;" @status></label>
                                             @Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

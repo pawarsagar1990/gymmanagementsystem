@@ -324,9 +324,11 @@ namespace MyProject.Controllers
             try
             {
                 if (pd.Flag == "YES") { pd.Flag = "YES"; } else { pd.Flag = "NO"; }
+                pd.CreatedOn = DateTime.Now;
+                pd.CreatedBy = Session["UserName"].ToString();
                 db.Entry(pd).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("PackageListForAdmin", "Admin");
             }
             catch (Exception)
             {
