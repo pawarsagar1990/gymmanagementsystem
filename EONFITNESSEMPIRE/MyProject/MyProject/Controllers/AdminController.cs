@@ -81,6 +81,7 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+        [Authorize(Roles = "A")]
         public ActionResult MemberRegistration()
         {
                     try
@@ -112,6 +113,7 @@ namespace MyProject.Controllers
                     }
                 return View(); 
         }
+        [Authorize(Roles = "A")]
         [HttpPost]
         public ActionResult MemberRegistration(MemberRegistration mr, HttpPostedFileBase file, FormCollection collection)
         {
@@ -216,6 +218,7 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+        [Authorize(Roles = "A")]
         public ActionResult MemberListForAdmin(int? page)
         {
             try
@@ -229,6 +232,7 @@ namespace MyProject.Controllers
             }
             
         }
+        [Authorize(Roles = "A")]
         public ActionResult UserLoginList(int? page)
         {
             try
@@ -364,6 +368,17 @@ namespace MyProject.Controllers
                 throw;
             }
             
+        }
+        public ActionResult PhysicalAssessment()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

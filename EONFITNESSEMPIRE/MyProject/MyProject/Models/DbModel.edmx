@@ -119,6 +119,13 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="Height" Type="nvarchar" MaxLength="10" />
           <Property Name="Weight" Type="nvarchar" MaxLength="10" />
+          <Property Name="Biceps" Type="nvarchar" MaxLength="10" />
+          <Property Name="Triceps" Type="nvarchar" MaxLength="10" />
+          <Property Name="Shoulder" Type="nvarchar" MaxLength="10" />
+          <Property Name="Chest" Type="nvarchar" MaxLength="10" />
+          <Property Name="Wrist" Type="nvarchar" MaxLength="10" />
+          <Property Name="Thighs" Type="nvarchar" MaxLength="10" />
+          <Property Name="Fourarms" Type="nvarchar" MaxLength="10" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
         </EntityType>
@@ -371,6 +378,13 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MemberRegistration" Relationship="Self.FK_PhysicalAssessment_MemberRegistration" FromRole="PhysicalAssessment" ToRole="MemberRegistration" />
+          <Property Name="Biceps" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Triceps" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Shoulder" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Chest" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Wrist" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Thighs" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Fourarms" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TransactionPayment">
           <Key>
@@ -662,6 +676,13 @@
           <EntitySetMapping Name="PhysicalAssessments">
             <EntityTypeMapping TypeName="DbGymModel.PhysicalAssessment">
               <MappingFragment StoreEntitySet="PhysicalAssessment">
+                <ScalarProperty Name="Fourarms" ColumnName="Fourarms" />
+                <ScalarProperty Name="Thighs" ColumnName="Thighs" />
+                <ScalarProperty Name="Wrist" ColumnName="Wrist" />
+                <ScalarProperty Name="Chest" ColumnName="Chest" />
+                <ScalarProperty Name="Shoulder" ColumnName="Shoulder" />
+                <ScalarProperty Name="Triceps" ColumnName="Triceps" />
+                <ScalarProperty Name="Biceps" ColumnName="Biceps" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MemberRegistration_PK_ID" ColumnName="MemberRegistration_PK_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
