@@ -58,6 +58,13 @@
     <EntitySetMapping Name="PhysicalAssessments">
       <EntityTypeMapping TypeName="DbGymModel.PhysicalAssessment">
         <MappingFragment StoreEntitySet="PhysicalAssessment">
+          <ScalarProperty Name="Fourarms" ColumnName="Fourarms" />
+          <ScalarProperty Name="Thighs" ColumnName="Thighs" />
+          <ScalarProperty Name="Wrist" ColumnName="Wrist" />
+          <ScalarProperty Name="Chest" ColumnName="Chest" />
+          <ScalarProperty Name="Shoulder" ColumnName="Shoulder" />
+          <ScalarProperty Name="Triceps" ColumnName="Triceps" />
+          <ScalarProperty Name="Biceps" ColumnName="Biceps" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="MemberRegistration_PK_ID" ColumnName="MemberRegistration_PK_ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />

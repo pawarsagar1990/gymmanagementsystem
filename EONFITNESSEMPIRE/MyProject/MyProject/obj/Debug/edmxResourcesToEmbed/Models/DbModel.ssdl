@@ -114,6 +114,13 @@
     <Property Name="Date" Type="datetime" />
     <Property Name="Height" Type="nvarchar" MaxLength="10" />
     <Property Name="Weight" Type="nvarchar" MaxLength="10" />
+    <Property Name="Biceps" Type="nvarchar" MaxLength="10" />
+    <Property Name="Triceps" Type="nvarchar" MaxLength="10" />
+    <Property Name="Shoulder" Type="nvarchar" MaxLength="10" />
+    <Property Name="Chest" Type="nvarchar" MaxLength="10" />
+    <Property Name="Wrist" Type="nvarchar" MaxLength="10" />
+    <Property Name="Thighs" Type="nvarchar" MaxLength="10" />
+    <Property Name="Fourarms" Type="nvarchar" MaxLength="10" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
   </EntityType>

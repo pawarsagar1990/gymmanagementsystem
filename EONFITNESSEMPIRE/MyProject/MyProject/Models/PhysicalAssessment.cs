@@ -23,6 +23,13 @@ namespace MyProject.Models
         public string Weight { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
+        public string Biceps { get; set; }
+        public string Triceps { get; set; }
+        public string Shoulder { get; set; }
+        public string Chest { get; set; }
+        public string Wrist { get; set; }
+        public string Thighs { get; set; }
+        public string Fourarms { get; set; }
     
         public virtual MemberRegistration MemberRegistration { get; set; }
     }

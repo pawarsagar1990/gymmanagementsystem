@@ -62,6 +62,7 @@
                                             <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
                                             <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
                                             <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                            <abbr title="Physical Assessment '@item.MemberName'"><a href="@Url.Action("PhysicalAssessment", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-cog" style="color: red"></span></a></abbr>
                                         </h4>
                                     </td>
                                 </tr>

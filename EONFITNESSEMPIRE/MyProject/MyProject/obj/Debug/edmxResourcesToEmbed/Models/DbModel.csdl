@@ -75,6 +75,13 @@
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="MemberRegistration" Relationship="Self.FK_PhysicalAssessment_MemberRegistration" FromRole="PhysicalAssessment" ToRole="MemberRegistration" />
+    <Property Name="Biceps" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Triceps" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Shoulder" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Chest" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Wrist" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Thighs" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Fourarms" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TransactionPayment">
     <Key>
