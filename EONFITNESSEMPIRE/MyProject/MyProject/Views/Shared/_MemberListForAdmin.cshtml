@@ -3,7 +3,7 @@
 @using PagedList.Mvc
 @using MyProject.Models
 @Html.ActionLink("New Member Registration", "MemberRegistration", "Admin", new { @class = "btn btn-embossed btn-primary" })
-<div class="panel panel-primary">
+<div class="panel panel-info">
     <div class="panel-heading">
         Member List
     </div>
@@ -57,10 +57,10 @@
                                 </h4>
                             </td>
                         </tr>
-                     }
+                                    }
                 </tbody>
             </table>
-            @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin","Admin", new { page }))
+            @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin", "Admin", new { page }))
         </div>
         <!-- /.table-responsive -->
     </div>
@@ -69,5 +69,3 @@
 
 
 
-           
-   

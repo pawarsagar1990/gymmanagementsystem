@@ -43,8 +43,8 @@
         }
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary">
-                    <div class="panel-header">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
                         <h2><strong>Member Registration</strong></h2>
                     </div>
                     <div class="panel-content">
@@ -90,7 +90,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group" style="margin-bottom:-8px;">
                                             <label class="form-label">Date of Birth</label>
                                             <div class="prepend-icon">
@@ -115,7 +115,7 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        
+
                                         <div class="form-group">
                                             <label class="control-label">Address</label>
                                             <input class="form-control" name="Address" id="Address" type="text" placeholder="Enter Address">
@@ -159,7 +159,7 @@
                                             @Html.ValidationMessageFor(model => model.Payment_Type_ID, "", new { @class = "text-danger" })
 
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 @if (ViewBag.Roles != null)
@@ -169,7 +169,7 @@
                                         @Html.DropDownList("RolesForAll", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select User Role", htmlAttributes: new { @class = "form-control" })
                                     </div>
                                 }
-                                
+
                                 <div class="form-group">
                                     <p>
                                         <strong>Photo Upload</strong>

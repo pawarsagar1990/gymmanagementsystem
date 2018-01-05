@@ -211,6 +211,7 @@ namespace MyProject.Controllers
         {
             try
             {
+
                 return View();
             }
             catch (Exception)
@@ -292,7 +293,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -304,7 +304,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -318,7 +317,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -367,16 +365,63 @@ namespace MyProject.Controllers
             {
                 throw;
             }
-            
         }
-        public ActionResult PhysicalAssessment()
+        public ActionResult PhysicalAssessment(int id, int? page)
         {
             try
             {
-                return View();
+                MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                ViewBag.Name = mr.MemberName;
+                ViewBag.Mobile = mr.MobileNumber;
+                Session["ItemID"] = id;
+                List<PhysicalAssessment> pa = db.PhysicalAssessments.Where(m => m.MemberRegistration.ID.Equals(id)).ToList();
+                return View(pa.ToPagedList(page ?? 1, 10));
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+        public ActionResult PhysicalAssessmentDelete(int id)
+        {
+            try
+            {
+                PhysicalAssessment pa = db.PhysicalAssessments.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                db.PhysicalAssessments.Remove(pa);
+                db.SaveChanges();
+                int ItemID = Convert.ToInt32(Session["ItemID"]);
+               // return View("PhysicalAssessment", "Admin");
+                return RedirectToAction("PhysicalAssessment","Admin", new { id = ItemID });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void SavePhysicalAssessment(PhysicalAssessment pa)
+        {
+            try
+            {
+                pa.CreatedBy = Session["UserName"].ToString();
+                pa.CreatedOn = DateTime.Now;
+                db.PhysicalAssessments.Add(pa);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public ActionResult ListJoinCurrentMonthForAdmin(int? page)
+        {
+            try
+            {
+                return View((objcls.ListJoinCurrentMonth()).ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

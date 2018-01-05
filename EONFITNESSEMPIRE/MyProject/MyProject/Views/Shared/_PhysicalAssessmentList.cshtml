@@ -1,0 +1,90 @@
+﻿@model IPagedList<MyProject.Models.PhysicalAssessment>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading"> Physical Assessment List
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>            
+                                <th> @Html.DisplayNameFor(model => model.First().Name) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Date) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Weight)</th>
+                                <th> @Html.DisplayNameFor(model => model.First().Biceps) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Chest) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Height) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Triceps) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Shoulder) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Wrist) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Thighs) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().Fourarms) </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            var images = @Url.Content("~/Images/ProfilePic/" + item.MemberRegistration.ProfilePic);
+                                        }
+                                        <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @{ string itemdate = String.Format("{0:dd/MM/yyyy}", item.Date);}
+                                        @Html.DisplayFor(modelItem => itemdate)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Weight)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Biceps)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Chest)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Height)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Triceps)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Shoulder)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Wrist)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Thighs)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fourarms)
+                                    </td>
+
+                                    <td>
+                                        <h4>
+                                             <abbr title="Delete '@item.Name'"><a href="@Url.Action("PhysicalAssessmentDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                         </h4>
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("PhysicalAssessment", new { page }))
+                </div>
+                @Html.ActionLink("Back To List","MemberListForAdmin", "Admin")
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

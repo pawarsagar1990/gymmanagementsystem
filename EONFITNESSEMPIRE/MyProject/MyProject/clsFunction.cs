@@ -33,6 +33,7 @@ namespace MyProject
             try
             { 
                 List<Confirm_MemberRegistration> NotConfirm = db.Confirm_MemberRegistration.Where(m => m.ConfirmFlag.Equals(FlagNO)).ToList();
+                HttpContext.Current.Session["WatingList"] = NotConfirm.Count();
                 return NotConfirm;
             }
             catch (Exception)
@@ -117,6 +118,7 @@ namespace MyProject
                         CurrentMonthJoining++;
                     }
                 }
+                
                 return (CurrentMonthJoining);
             }
             catch (Exception)
@@ -125,6 +127,12 @@ namespace MyProject
                 throw;
             }
            
+        }
+        public IEnumerable<MemberRegistration> ListJoinCurrentMonth()
+        {
+            string CurrentMonth = DateTime.Now.Month.ToString();
+            List<MemberRegistration> lst = db.MemberRegistrations.Where(m => m.DOJ.Equals(CurrentMonth)).ToList();
+            return lst;
         }
         public string MemberRgistrationConfirm(int id)
         {

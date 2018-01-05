@@ -1,0 +1,133 @@
+﻿@model IPagedList<MyProject.Models.PhysicalAssessment>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
+    ViewBag.Title = "PhysicalAssessment";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+  
+    @Html.ValidationSummary(true)
+   @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            @*<div class="panel panel-info">
+                <div class="panel-header">*@
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <strong>Physical Assessment</strong>
+                        </div>
+                        <form id="AddData">
+                            <div class="form-group">
+                                <input type="hidden" id="MemberRegistration_PK_ID" name="MemberRegistration_PK_ID" value="@Session["ItemID"]" />
+                            </div>
+                            <div class="panel-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label class="control-label">Name</label>
+                                                <input class="form-control" readonly name="Name" id="Name" value="@ViewBag.Name" placeholder="Enter Name">
+                                                @*@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })*@
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">Height</label>
+                                                <input class="form-control" name="Height" id="Height" placeholder="Enter Height">
+                                                @*@Html.ValidationMessageFor(m => m.Height, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Weight</label>
+                                                <input class="form-control" name="Weight" id="Weight" placeholder="Enter Weight">
+                                                @*@Html.ValidationMessageFor(m => m.Weight, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Chest</label>
+                                                <input class="form-control" name="Chest" id="Chest" placeholder="Enter Chest">
+                                                @*@Html.ValidationMessageFor(m => m.Chest, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Shoulder</label>
+                                                <input class="form-control" name="Shoulder" id="Shoulder" placeholder="Enter Shoulder">
+                                                @*@Html.ValidationMessageFor(m => m.Shoulder, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Biceps</label>
+                                                <input class="form-control" name="Biceps" id="Biceps" placeholder="Enter Biceps">
+                                                @*@Html.ValidationMessageFor(m => m.Biceps, "", new { @class = "text-danger" })*@
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Mobile Number</label>
+                                                <input class="form-control" readonly="readonly" name="Mobile" id="Mobile" value="@ViewBag.Mobile" placeholder="Enter Month or Year">
+                                                @*@Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Triceps</label>
+                                                <input class="form-control" name="Triceps" id="Triceps" placeholder="Enter Tricepst">
+                                                @*@Html.ValidationMessageFor(m => m.Triceps, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Fourarms</label>
+                                                <input class="form-control" name="Fourarms" id="Fourarms" placeholder="Enter Fourarms">
+                                                @*@Html.ValidationMessageFor(m => m.Fourarms, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Wrist</label>
+                                                <input class="form-control" name="Wrist" id="Wrist" placeholder="Enter Wrist">
+                                                @*@Html.ValidationMessageFor(m => m.Wrist, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Thighs</label>
+                                                <input class="form-control" name="Thighs" id="Thighs" placeholder="Enter Thighs">
+                                                @*@Html.ValidationMessageFor(m => m.Thighs, "", new { @class = "text-danger" })*@
+                                            </div>
+                                            <div class="form-group" style="margin-top:40px;">
+                                                <button type="submit" class="btn btn-embossed btn-primary">Save</button>
+                                                <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+       
+    </div>
+
+<div class="col-md-12">
+    @Html.Partial("_PhysicalAssessmentList")
+</div>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $("#AddData").on('submit', function (e) {
+
+            e.preventDefault();
+            var $this = $(this);
+            var dataToPost = $(this).serialize();
+
+            $.post("/Admin/SavePhysicalAssessment", dataToPost)
+                .done(function (response, status, jqxhr) {
+                    alert("Physical Assessment Successfully Added.");
+                    window.location.href = '/Admin/PhysicalAssessment/@Session["ItemID"]'
+                })
+                .fail(function (jqxhr, status, error) {
+                    // this is the ""error"" callback
+                })
+        })
+    });
+</script>

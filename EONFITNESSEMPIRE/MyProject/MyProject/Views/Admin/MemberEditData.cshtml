@@ -38,8 +38,8 @@
         }
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary">
-                    <div class="panel-header">
+                <<div class="panel panel-info">
+                    <div class="panel-heading">
                         <h2><strong>Member Data Edit</strong></h2>
                     </div>
                     <div class="panel-content">
@@ -86,11 +86,11 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                         @{ string itemdate = String.Format("{0:dd/MM/yyyy}", Model.DOB);}
                                         <div class="form-group" style="margin-bottom:-8px;">
                                             <label class="form-label">Date of Birth</label>
                                             <div class="prepend-icon">
-                                                <input type="text" name="DOB" id="DOB" value="@Html.Raw(Html.AttributeEncode(Model.DOB))" class="date-picker form-control" placeholder="Select a date...">
+                                                <input  name="DOB" id="DOB" value="@Html.Raw(Html.AttributeEncode(itemdate))" class="date-picker form-control" placeholder="Select a date...">
                                                 <i class="icon-calendar"></i>
                                                 @Html.ValidationMessageFor(m => m.DOB, "", new { @class = "text-danger" })
                                             </div>
@@ -103,7 +103,7 @@
                                                 @Html.ValidationMessageFor(m => m.DOJ, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        @{ 
+                                        @{
                                             string status = (Model.Flag == "YES" ? "checked" : "");
                                         }
                                         <div class="form-group">
@@ -151,7 +151,7 @@
                                             @Html.ValidationMessageFor(model => model.Package_ID, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
-                                          
+
                                             <label>Payment Type</label>
                                             @Html.DropDownList("Payment_Type_ID", PaymentName, "Select Payment Type", htmlAttributes: new { @class = "form-control" })
 

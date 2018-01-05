@@ -3,9 +3,17 @@
 @using PagedList.Mvc
 @using MyProject.Models
 @Html.ActionLink("New Member Registration", "MemberRegistration", "Admin", new { @class = "btn btn-embossed btn-primary" })
+@{
+    ViewBag.Title = "ListJoinCurrentMonthForAdmin";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+
+
+
 <div class="panel panel-info">
     <div class="panel-heading">
-        Member List
+        Join In Current Month //@DateTime.Now.Month.ToString();
     </div>
     <div class="panel-body">
         <div class="table-responsive">

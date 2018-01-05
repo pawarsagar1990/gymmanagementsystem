@@ -12,8 +12,8 @@
 @{clsFunction objcls = new clsFunction(); }
 @if (objcls.Roles() == "A")
 {
-    <div class="panel panel-primary">
-        <div class="panel-header ">
+    <div class="panel panel-info">
+        <div class="panel-heading">
             <h2><strong>Dashboard</strong></h2>
         </div>
         <div class="panel-body">
@@ -51,11 +51,11 @@
                                     </div>
                                     <div class="col-xs-7 text-right">
                                         <div class="huge">@ViewBag.TotalCurrentMonthJoining</div>
-                                        <div>Joining In This Month</div>
+                                        <div>Join In This @DateTime.Now.ToString("MMMM")</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="/admin/TeacherDetails">
+                            <a href="/Admin/ListJoinCurrentMonthForAdmin">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -72,8 +72,8 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-7 text-right">
-                                        <div class="huge">@ViewBag.exam</div>
-                                        <div>Text</div>
+                                        <div class="huge">@Session["WatingList"]</div>
+                                        <div>Wating List For Join</div>
                                     </div>
                                 </div>
                             </div>
@@ -122,9 +122,9 @@
     </div>
 }
 
-@*Start User*@
+    @*Start User*@
 
-@if(objcls.Roles() == "U")
-{
-    <p>Member Home Page</p>
-}
+    @if (objcls.Roles() == "U")
+    {
+        <p>Member Home Page</p>
+    }

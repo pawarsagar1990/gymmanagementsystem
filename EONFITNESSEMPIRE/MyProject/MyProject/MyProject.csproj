@@ -10471,6 +10471,9 @@
     <Content Include="StartSite\images\parallax\Thumbs.db" />
     <Content Include="StartSite\images\Thumbs.db" />
     <Content Include="Views\StartPage\Home.cshtml" />
+    <Content Include="Views\Admin\PhysicalAssessment.cshtml" />
+    <Content Include="Views\Shared\_PhysicalAssessmentList.cshtml" />
+    <Content Include="Views\Admin\ListJoinCurrentMonthForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

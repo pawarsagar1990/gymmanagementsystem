@@ -105,6 +105,6 @@ F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\S
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.xml
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Deployment.xml
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Razor.xml
-F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.csprojResolveAssemblyReference.cache
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.dll
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.pdb
+F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.csprojResolveAssemblyReference.cache
