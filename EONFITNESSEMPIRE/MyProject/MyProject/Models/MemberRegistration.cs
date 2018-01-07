@@ -20,6 +20,7 @@ namespace MyProject.Models
             this.PhysicalAssessments = new HashSet<PhysicalAssessment>();
             this.TransactionPayments = new HashSet<TransactionPayment>();
             this.UserLogins = new HashSet<UserLogin>();
+            this.TransactionDetails = new HashSet<TransactionDetail>();
         }
     
         public int ID { get; set; }
@@ -53,5 +54,7 @@ namespace MyProject.Models
         public virtual ICollection<TransactionPayment> TransactionPayments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLogin> UserLogins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }

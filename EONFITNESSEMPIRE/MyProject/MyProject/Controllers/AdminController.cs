@@ -425,5 +425,40 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+
+        public ActionResult MemberPayment(int id, int? page)
+        {
+            try
+            {
+                MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
+                ViewBag.Name = mr.MemberName;
+                ViewBag.Mobile = mr.MobileNumber;
+                ViewBag.MemberID = id;
+                ViewBag.SelectedPackage = mr.Package_ID;
+                List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID.Value.Equals(id)).ToList();
+                return View(MemberTransactionDetails.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void SaveMemberPayment(TransactionDetail memberTransactionDetail)
+        {
+            try
+            {
+                memberTransactionDetail.CreatedBy = Session["UserName"].ToString();
+                memberTransactionDetail.CreatedOn = DateTime.Now;
+                memberTransactionDetail.Payment_Date = DateTime.Now;                
+                db.TransactionDetails.Add(memberTransactionDetail);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

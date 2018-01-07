@@ -178,6 +178,9 @@
     <Compile Include="Models\PhysicalAssessment.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TransactionDetail.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TransactionPayment.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
@@ -10474,6 +10477,8 @@
     <Content Include="Views\Admin\PhysicalAssessment.cshtml" />
     <Content Include="Views\Shared\_PhysicalAssessmentList.cshtml" />
     <Content Include="Views\Admin\ListJoinCurrentMonthForAdmin.cshtml" />
+    <Content Include="Views\Admin\MemberPayment.cshtml" />
+    <Content Include="Views\Admin\_MemberPaymentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

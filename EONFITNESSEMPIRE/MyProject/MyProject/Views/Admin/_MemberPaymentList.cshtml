@@ -1,0 +1,88 @@
+﻿@model IPagedList<MyProject.Models.TransactionDetail>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading"> Member Payment Details
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>        
+                                <th> Selected Package </th>    
+                                <th> Package Start Date </th>
+                                <th> Package End Date </th>
+                                <th> Date of Payment </th>
+                                <th> Member Name </th>
+                                <th> Mobile Number </th>
+                                <th> Amount Paid </th>
+                                <th> Amount Due </th>
+                                <th> Next Payment Date</th>
+                                <th> Total Package Amount </th>
+                                <th> Created By </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>    
+                                    <td>
+                                        @{ string PackageDetailsSelected = (item.PackageDetail.NumberOfMonth + "  " + item.PackageDetail.Pkg_Month + "  " + "Rs. " + item.PackageDetail.Pkg_Ammount); }                                   
+                                        @PackageDetailsSelected
+                                    </td>                                
+                                    <td>
+                                        @{ string PackageStartDate = String.Format("{0:dd/MM/yyyy}", item.PackageStartDate);}
+                                        @PackageStartDate
+                                    </td>
+                                    <td>
+                                        @{ string PackageEndDate = String.Format("{0:dd/MM/yyyy}", item.PackageEndDate);}
+                                        @PackageEndDate
+                                    </td>
+                                    <td>
+                                        @{ string PaymentDate = String.Format("{0:dd/MM/yyyy hh:mm:ss}", item.Payment_Date);}
+                                        @PaymentDate
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MemberRegistration.MemberName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MobileNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Paid_Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Due_Amount)
+                                    </td>
+                                    <td>
+                                        @{ string NextPaymentDate = String.Format("{0:dd/MM/yyyy}", item.NextPaymentDate);}
+                                        @NextPaymentDate
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PackageDetail.Pkg_Ammount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        <h4>
+                                             <abbr title="Delete"><a href=""><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                         </h4>
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("PhysicalAssessment", new { page }))
+                </div>
+                @Html.ActionLink("Back To List","MemberListForAdmin", "Admin")
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>

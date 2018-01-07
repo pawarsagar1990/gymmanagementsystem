@@ -22,6 +22,9 @@
         <EntityTypeShape EntityType="DbGymModel.GymClose" Width="1.5" PointX="7.375" PointY="4.375" />
         <AssociationConnector Association="DbGymModel.FK_Confirm_MemberRegistration_PackageDetails" />
         <AssociationConnector Association="DbGymModel.FK_Confirm_MemberRegistration_PaymentDetails" />
+        <EntityTypeShape EntityType="DbGymModel.TransactionDetail" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="DbGymModel.FK_TransactionDetails_MemberRegistration" />
+        <AssociationConnector Association="DbGymModel.FK_TransactionDetails_PackageDetails" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -34,5 +34,6 @@ namespace MyProject.Models
         public virtual DbSet<Andd> Andds { get; set; }
         public virtual DbSet<Confirm_MemberRegistration> Confirm_MemberRegistration { get; set; }
         public virtual DbSet<GymClose> GymCloses { get; set; }
+        public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
     }
 }

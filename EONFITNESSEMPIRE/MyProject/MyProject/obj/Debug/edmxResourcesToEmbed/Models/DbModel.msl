@@ -165,5 +165,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TransactionDetails">
+      <EntityTypeMapping TypeName="DbGymModel.TransactionDetail">
+        <MappingFragment StoreEntitySet="TransactionDetail">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TotalPackagePayment" ColumnName="TotalPackagePayment" />
+          <ScalarProperty Name="Advance_Amount" ColumnName="Advance_Amount" />
+          <ScalarProperty Name="NextPaymentDate" ColumnName="NextPaymentDate" />
+          <ScalarProperty Name="Due_Amount" ColumnName="Due_Amount" />
+          <ScalarProperty Name="Paid_Amount" ColumnName="Paid_Amount" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+          <ScalarProperty Name="PackageDetails_PK_ID" ColumnName="PackageDetails_PK_ID" />
+          <ScalarProperty Name="PackageEndDate" ColumnName="PackageEndDate" />
+          <ScalarProperty Name="PackageStartDate" ColumnName="PackageStartDate" />
+          <ScalarProperty Name="MemberRegistration_PK_ID" ColumnName="MemberRegistration_PK_ID" />
+          <ScalarProperty Name="TransactionDetailsID" ColumnName="TransactionDetailsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
