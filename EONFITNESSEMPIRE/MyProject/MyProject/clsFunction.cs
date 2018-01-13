@@ -24,7 +24,9 @@ namespace MyProject
         }
         public IEnumerable<MemberRegistration> MemberListData()
         {
-            List<MemberRegistration> mr = db.MemberRegistrations.ToList();
+            string status = "YES";
+            List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+            //List<MemberRegistration> mr = db.MemberRegistrations.ToList();
             return mr;
         }
         public IEnumerable<Confirm_MemberRegistration> VerifictionRemainList()
@@ -38,7 +40,6 @@ namespace MyProject
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -110,15 +111,18 @@ namespace MyProject
                 // Staff
                 foreach (MemberRegistration item in mr)
                 {
-                    DateTime DOJ = (DateTime)item.DOJ;
-                    string JoningMonth = (DOJ.Month).ToString();
-                    string CurrentMonth = DateTime.Now.Month.ToString();
-                    if (JoningMonth == CurrentMonth)
+                    if (item.DOJ != null)
                     {
-                        CurrentMonthJoining++;
+                        DateTime DOJ = (DateTime)item.DOJ;
+                    
+                        string JoningMonth = (DOJ.Month).ToString();
+                        string CurrentMonth = DateTime.Now.Month.ToString();
+                        if (JoningMonth == CurrentMonth)
+                        {
+                            CurrentMonthJoining++;
+                        }
                     }
                 }
-                
                 return (CurrentMonthJoining);
             }
             catch (Exception)
@@ -130,8 +134,15 @@ namespace MyProject
         }
         public IEnumerable<MemberRegistration> ListJoinCurrentMonth()
         {
-            string CurrentMonth = DateTime.Now.Month.ToString();
-            List<MemberRegistration> lst = db.MemberRegistrations.Where(m => m.DOJ.Equals(CurrentMonth)).ToList();
+            List<MemberRegistration> lst = db.MemberRegistrations.ToList();
+            //string CurrentMonth = DateTime.Now.Month.ToString();
+            //string CurrentYear = DateTime.Now.Year.ToString();
+            //foreach(var item in lst)
+            //{
+            //    string ListMonth = item.DOJ;
+            //}
+            
+           // List<MemberRegistration> lst = db.MemberRegistrations.Where(m => m.DOJ.Equals(CurrentMonth)).ToList();
             return lst;
         }
         public string MemberRgistrationConfirm(int id)

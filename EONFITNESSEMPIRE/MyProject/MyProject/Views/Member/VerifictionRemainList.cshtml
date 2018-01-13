@@ -1,6 +1,10 @@
-﻿@{
+﻿@model IPagedList<MyProject.Models.Confirm_MemberRegistration>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
     ViewBag.Title = "VerifictionRemainList";
     Layout = "~/Views/Shared/AdminMaster.cshtml";
 }
 
-<h2>VerifictionRemainList</h2>
+@Html.Partial("VerificationListForHomePage")

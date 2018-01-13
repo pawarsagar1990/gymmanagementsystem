@@ -178,6 +178,10 @@ namespace MyProject.Controllers
                         us.CreatedOn = dt;
                         db.UserLogins.Add(us);
                         db.SaveChanges();
+                        string MembershipID = "EON"+DateTime.Now.Year+userlogindata.ID;
+                        userlogindata.MembershipID = MembershipID;
+                        db.Entry(userlogindata).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
                         ModelState.Clear();
                     }
                     catch (Exception)
@@ -211,8 +215,10 @@ namespace MyProject.Controllers
         {
             try
             {
-
-                return View();
+                db.Entry(mr).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                TempData["UpdateMemberData"] = mr.MemberName + "Successfully Updated!";
+                return RedirectToAction("MemberListForAdmin");
             }
             catch (Exception)
             {
@@ -231,7 +237,18 @@ namespace MyProject.Controllers
             { 
                 throw;
             }
-            
+        }
+        public ActionResult ActiveMemberListForAdmin(int? page)
+        {
+            try
+            {
+                return View(objcls.MemberListData().ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         [Authorize(Roles = "A")]
         public ActionResult UserLoginList(int? page)

@@ -4,6 +4,9 @@
     <EntitySetMapping Name="MemberRegistrations">
       <EntityTypeMapping TypeName="DbGymModel.MemberRegistration">
         <MappingFragment StoreEntitySet="MemberRegistration">
+          <ScalarProperty Name="MembershipID" ColumnName="MembershipID" />
+          <ScalarProperty Name="PackageEndDate" ColumnName="PackageEndDate" />
+          <ScalarProperty Name="PackageStartDate" ColumnName="PackageStartDate" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="MemberName" ColumnName="MemberName" />
           <ScalarProperty Name="Email" ColumnName="Email" />

@@ -44,6 +44,9 @@ namespace MyProject.Models
         public string Flag { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> PackageStartDate { get; set; }
+        public Nullable<System.DateTime> PackageEndDate { get; set; }
+        public string MembershipID { get; set; }
     
         public virtual PackageDetail PackageDetail { get; set; }
         public virtual PaymentDetail PaymentDetail { get; set; }

@@ -4,8 +4,13 @@
 @using MyProject.Models
 @Html.ActionLink("New Member Registration", "MemberRegistration", "Admin", new { @class = "btn btn-embossed btn-primary" })
 <div class="panel panel-info">
+    @{ 
+        string url = Path.GetFileName(Request.Path);
+    }
     <div class="panel-heading">
-        Member List
+         @if (url == "ActiveMemberListForAdmin") { <p>Active Member List</p> }
+         else
+         { <p>Member List</p> }
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -62,6 +67,7 @@
             </table>
             @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin", "Admin", new { page }))
         </div>
+        @Html.ActionLink("Back To Dashboard", "Home", "Admin")
         <!-- /.table-responsive -->
     </div>
     <!-- /.panel-body -->

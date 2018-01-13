@@ -80,6 +80,9 @@
           <Property Name="Payment_Type_ID" Type="int" />
           <Property Name="Installment_Method" Type="nvarchar" MaxLength="50" />
           <Property Name="ProfilePic" Type="nvarchar" MaxLength="80" />
+          <Property Name="PackageStartDate" Type="date" />
+          <Property Name="PackageEndDate" Type="date" />
+          <Property Name="MembershipID" Type="nchar" MaxLength="15" />
           <Property Name="Flag" Type="nvarchar" MaxLength="10" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
@@ -334,6 +337,9 @@
           <NavigationProperty Name="PhysicalAssessments" Relationship="Self.FK_PhysicalAssessment_MemberRegistration" FromRole="MemberRegistration" ToRole="PhysicalAssessment" />
           <NavigationProperty Name="TransactionPayments" Relationship="Self.FK_TransactionPayment_MemberRegistration" FromRole="MemberRegistration" ToRole="TransactionPayment" />
           <NavigationProperty Name="UserLogins" Relationship="Self.FK_UserLogin_MemberRegistration" FromRole="MemberRegistration" ToRole="UserLogin" />
+          <Property Name="PackageStartDate" Type="DateTime" Precision="0" />
+          <Property Name="PackageEndDate" Type="DateTime" Precision="0" />
+          <Property Name="MembershipID" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="PackageDetail">
           <Key>
@@ -622,6 +628,9 @@
           <EntitySetMapping Name="MemberRegistrations">
             <EntityTypeMapping TypeName="DbGymModel.MemberRegistration">
               <MappingFragment StoreEntitySet="MemberRegistration">
+                <ScalarProperty Name="MembershipID" ColumnName="MembershipID" />
+                <ScalarProperty Name="PackageEndDate" ColumnName="PackageEndDate" />
+                <ScalarProperty Name="PackageStartDate" ColumnName="PackageStartDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MemberName" ColumnName="MemberName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

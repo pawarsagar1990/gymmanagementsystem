@@ -10474,6 +10474,7 @@
     <Content Include="Views\Admin\PhysicalAssessment.cshtml" />
     <Content Include="Views\Shared\_PhysicalAssessmentList.cshtml" />
     <Content Include="Views\Admin\ListJoinCurrentMonthForAdmin.cshtml" />
+    <Content Include="Views\Admin\ActiveMemberListForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

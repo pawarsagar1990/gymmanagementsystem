@@ -31,6 +31,9 @@
     <NavigationProperty Name="PhysicalAssessments" Relationship="Self.FK_PhysicalAssessment_MemberRegistration" FromRole="MemberRegistration" ToRole="PhysicalAssessment" />
     <NavigationProperty Name="TransactionPayments" Relationship="Self.FK_TransactionPayment_MemberRegistration" FromRole="MemberRegistration" ToRole="TransactionPayment" />
     <NavigationProperty Name="UserLogins" Relationship="Self.FK_UserLogin_MemberRegistration" FromRole="MemberRegistration" ToRole="UserLogin" />
+    <Property Name="PackageStartDate" Type="DateTime" Precision="0" />
+    <Property Name="PackageEndDate" Type="DateTime" Precision="0" />
+    <Property Name="MembershipID" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="PackageDetail">
     <Key>

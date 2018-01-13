@@ -1,0 +1,10 @@
+﻿@model IPagedList<MyProject.Models.MemberRegistration>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
+    ViewBag.Title = "ActiveMemberListForAdmin";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+@Html.Partial("_MemberListForAdmin")
