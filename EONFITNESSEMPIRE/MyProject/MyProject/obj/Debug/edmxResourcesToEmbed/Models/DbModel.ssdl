@@ -127,6 +127,27 @@
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="TransactionDetail">
+    <Key>
+      <PropertyRef Name="TransactionDetailsID" />
+    </Key>
+    <Property Name="TransactionDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MemberRegistration_PK_ID" Type="int" />
+    <Property Name="PackageStartDate" Type="datetime" />
+    <Property Name="PackageEndDate" Type="datetime" />
+    <Property Name="PackageDetails_PK_ID" Type="int" />
+    <Property Name="Payment_Date" Type="datetime" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="15" />
+    <Property Name="PaymentType" Type="nvarchar" MaxLength="15" />
+    <Property Name="Paid_Amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Due_Amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="NextPaymentDate" Type="datetime" />
+    <Property Name="Advance_Amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TotalPackagePayment" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+  </EntityType>
   <EntityType Name="TransactionPayment">
     <Key>
       <PropertyRef Name="ID" />
@@ -218,6 +239,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TransactionDetails_MemberRegistration">
+    <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="0..1" />
+    <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberRegistration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="MemberRegistration_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionDetails_PackageDetails">
+    <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="0..1" />
+    <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PackageDetails">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionDetail">
+        <PropertyRef Name="PackageDetails_PK_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TransactionPayment_MemberRegistration">
     <End Role="MemberRegistration" Type="Self.MemberRegistration" Multiplicity="0..1" />
     <End Role="TransactionPayment" Type="Self.TransactionPayment" Multiplicity="*" />
@@ -262,6 +307,7 @@
     <EntitySet Name="PackageDetails" EntityType="Self.PackageDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhysicalAssessment" EntityType="Self.PhysicalAssessment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionDetail" EntityType="Self.TransactionDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TransactionPayment" EntityType="Self.TransactionPayment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Confirm_MemberRegistration_PackageDetails" Association="Self.FK_Confirm_MemberRegistration_PackageDetails">
@@ -283,6 +329,14 @@
     <AssociationSet Name="FK_PhysicalAssessment_MemberRegistration" Association="Self.FK_PhysicalAssessment_MemberRegistration">
       <End Role="MemberRegistration" EntitySet="MemberRegistration" />
       <End Role="PhysicalAssessment" EntitySet="PhysicalAssessment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionDetails_MemberRegistration" Association="Self.FK_TransactionDetails_MemberRegistration">
+      <End Role="MemberRegistration" EntitySet="MemberRegistration" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionDetails_PackageDetails" Association="Self.FK_TransactionDetails_PackageDetails">
+      <End Role="PackageDetails" EntitySet="PackageDetails" />
+      <End Role="TransactionDetail" EntitySet="TransactionDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_TransactionPayment_MemberRegistration" Association="Self.FK_TransactionPayment_MemberRegistration">
       <End Role="MemberRegistration" EntitySet="MemberRegistration" />

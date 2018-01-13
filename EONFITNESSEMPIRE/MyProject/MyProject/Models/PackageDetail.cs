@@ -19,6 +19,7 @@ namespace MyProject.Models
         {
             this.MemberRegistrations = new HashSet<MemberRegistration>();
             this.Confirm_MemberRegistration = new HashSet<Confirm_MemberRegistration>();
+            this.TransactionDetails = new HashSet<TransactionDetail>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace MyProject.Models
         public virtual ICollection<MemberRegistration> MemberRegistrations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Confirm_MemberRegistration> Confirm_MemberRegistration { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }

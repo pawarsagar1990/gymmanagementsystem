@@ -1,78 +1,124 @@
-﻿@model IPagedList<MyProject.Models.MemberRegistration>
-@using PagedList
-@using PagedList.Mvc
-@using MyProject.Models
-@{
+﻿@model IPagedList<MyProject.Models.TransactionDetail>
+    @using PagedList
+    @using PagedList.Mvc
+    @using MyProject.Models
+    @{
     ViewBag.Title = "MemberPayment";
     Layout = "~/Views/Shared/AdminMaster.cshtml";
+    }
+
+@{ 
+    DbGymEntities db = new DbGymEntities();
+    List<PackageDetail> PackageDetails = db.PackageDetails.ToList();
+    List<SelectListItem> FinalName = new List<SelectListItem>();
+    foreach (PackageDetail item in PackageDetails)
+    {
+        FinalName.Add(new SelectListItem { Text = item.NumberOfMonth + "  " + item.Pkg_Month + "  " + "Rs. " + item.Pkg_Ammount + "  Per Package", Value = item.ID.ToString(), Selected = (Convert.ToString(ViewBag.SelectedPackage) == Convert.ToString(item.ID)) });
+    }
 }
-@*@Html.ActionLink("New Member Registration", "MemberListForAdmin", "Admin", new { @class = "btn btn-embossed btn-primary" })*@
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Member List
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>
-                                <th> @Html.DisplayNameFor(model => model.First().Email)</th>
-                                <th> @Html.DisplayNameFor(model => model.First().DOJ) </th>
-                                <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
-                                <th> @Html.DisplayNameFor(model => model.First().City) </th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @{
-                                            var images = @Url.Content("~/Images/ProfilePic/" + item.ProfilePic);
-                                            
-                                        }
-                                        <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
-                                        @Html.DisplayFor(modelItem => item.MemberName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
-                                        @{
-                                            string dateString = String.Format("{0:dd/MM/yyyy}", item.DOJ);
-                                        }
-                                        @Html.DisplayFor(modelItem => dateString)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.MobileNumber)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.City)
-                                    </td>
-
-                                    <td>
-                                        <h4>
-                                            <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
-                                            <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
-                                            <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                            }
-                        </tbody>
-                    </table>
-                            @Html.PagedListPager(Model, page => Url.Action("MemberPayment", new { page }))
-                 </div>
-                    <!-- /.table-responsive -->
-                </div>
-            <!-- /.panel-body -->
-        </div>
+    @Html.ValidationSummary(true)
+    @if (ViewBag.Message != null)
+    {
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
     </div>
-</div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            @*<div class="panel panel-info">
+                <div class="panel-header">
+                    *@
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <strong>Member Payment</strong>
+                        </div>
+                        <form id="AddData">
+                            <div class="form-group">
+                                <input type="hidden" id="MemberRegistration_PK_ID" name="MemberRegistration_PK_ID" value="@ViewBag.MemberID"  />
+                            </div>
+                            <div class="panel-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Name</label>
+                                                <input class="form-control" readonly name="Name" id="Name" value="@ViewBag.Name" placeholder="Enter Name">                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Select Package</label>
+                                                @Html.DropDownList("PackageDetails_PK_ID", FinalName, "Select Package", htmlAttributes: new { @class = "form-control" })                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Package Start Date</label>
+                                                <div class="prepend-icon">
+                                                    <input type="text" name="PackageStartDate" id="PackageStartDate" class="date-picker form-control" placeholder="Select a date...">
+                                                    <i class="icon-calendar"></i>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Package End Date</label>
+                                                <div class="prepend-icon">
+                                                    <input type="text" name="PackageEndDate" id="PackageEndDate" class="date-picker form-control" placeholder="Select a date...">
+                                                    <i class="icon-calendar"></i>
+                                                </div>
+                                            </div>                                                                                     
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Mobile Number</label>
+                                                <input class="form-control" type="number" readonly="readonly" name="MobileNumber" id="MobileNumber" value="@ViewBag.Mobile" placeholder="Enter Month or Year">                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Paying Amount</label>
+                                                <input class="form-control" type="number" name="Paid_Amount" id="Paid_Amount" placeholder="Enter Paying Amount">                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Due Amount</label>
+                                                <input class="form-control" type="number" name="Due_Amount" id="Due_Amount" placeholder="Enter Due Amount">
+                                            </div>
+                                            <div class="form-group" style="margin-bottom:-8px;">
+                                                <label class="form-label">Next Payment Date</label>
+                                                <div class="prepend-icon">
+                                                    <input type="text" name="NextPaymentDate" id="NextPaymentDate" class="date-picker form-control" placeholder="Select a date...">
+                                                    <i class="icon-calendar"></i>
+                                                </div>
+                                            </div>                                           
+                                            <div class="form-group" style="margin-top:40px;">
+                                                <button type="submit" class="btn btn-embossed btn-primary">Make Payment</button>
+                                                <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                @Html.Partial("_MemberPaymentList")
+            </div>
+
+            <script language="javascript">
+                $(document).ready(function () {
+                    $("#AddData").on('submit', function (e) {
+
+                        e.preventDefault();
+                        var $this = $(this);
+                        var dataToPost = $(this).serialize();
+
+                        $.post("/Admin/SaveMemberPayment", dataToPost)
+                            .done(function (response, status, jqxhr) {
+                                alert("Member Payment Successfully Added.");
+                                window.location.href = '/Admin/MemberPayment/@ViewBag.MemberID';
+                            })
+                            .fail(function (jqxhr, status, error) {
+                                // this is the ""error"" callback
+                            });
+                    });
+                });
+            </script>
