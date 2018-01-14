@@ -134,6 +134,9 @@ namespace MyProject
         }
         public IEnumerable<MemberRegistration> ListJoinCurrentMonth()
         {
+            int currentmonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            string dt = currentYear+"-"+currentmonth+"-1";
             List<MemberRegistration> lst = db.MemberRegistrations.ToList();
             //string CurrentMonth = DateTime.Now.Month.ToString();
             //string CurrentYear = DateTime.Now.Year.ToString();

@@ -178,6 +178,9 @@
     <Compile Include="Models\PhysicalAssessment.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TransactionDetail.cs">
+      <DependentUpon>DbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TransactionPayment.cs">
       <DependentUpon>DbModel.tt</DependentUpon>
     </Compile>

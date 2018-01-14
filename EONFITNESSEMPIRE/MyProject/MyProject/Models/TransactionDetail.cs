@@ -14,11 +14,6 @@ namespace MyProject.Models
     
     public partial class TransactionDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TransactionDetail() {
-            
-        }
-
         public int TransactionDetailsID { get; set; }
         public Nullable<int> MemberRegistration_PK_ID { get; set; }
         public Nullable<System.DateTime> PackageStartDate { get; set; }

@@ -54,6 +54,9 @@ namespace MyProject.Controllers
         }
         public ActionResult Home(int? page)
         {
+            int currentmonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            string dt = currentYear + "-" + currentmonth + "-1";
             int id = Convert.ToInt32(Session["ID"]);
             string userrole = objcls.Roles();
             try
