@@ -15,7 +15,6 @@ namespace MyProject.Controllers
     {
         DbGymEntities db = new DbGymEntities();
         clsFunction objcls = new clsFunction();
-
         public ActionResult Login()
         {
             return View();
@@ -58,6 +57,7 @@ namespace MyProject.Controllers
             int currentYear = DateTime.Now.Year;
             string dt = currentYear + "-" + currentmonth + "-1";
             int id = Convert.ToInt32(Session["ID"]);
+            ViewBag.RenewMemberCount = objcls.RenewMemberCount();
             string userrole = objcls.Roles();
             try
             {
@@ -473,6 +473,23 @@ namespace MyProject.Controllers
                 memberTransactionDetail.Payment_Date = DateTime.Now;                
                 db.TransactionDetails.Add(memberTransactionDetail);
                 db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public ActionResult RenewMemberList()
+        {
+            try
+            {
+                string status = "YES";
+                List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+                DateTime today = DateTime.Today;
+                DateTime sevenDaysEarlier = today.AddDays(-5);
+                
+                return View();
             }
             catch (Exception)
             {

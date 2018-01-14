@@ -22,6 +22,7 @@ namespace MyProject
                 throw;
             }
         }
+
         public IEnumerable<MemberRegistration> MemberListData()
         {
             string status = "YES";
@@ -42,6 +43,25 @@ namespace MyProject
             {
                 throw;
             }
+        }
+        public int RenewMemberCount()
+        {
+            int count = 0;
+            DateTime today = DateTime.Today;
+            List<TransactionDetail> td = db.TransactionDetails.ToList();
+            if(td != null)
+            {
+                foreach (TransactionDetail item in td)
+                {
+                    DateTime dt = (DateTime)item.PackageEndDate;
+                    DateTime EndDateEarlier = dt.AddDays(-5);
+                    if (dt == today)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
         public int RemainsDays(int id)
         {
