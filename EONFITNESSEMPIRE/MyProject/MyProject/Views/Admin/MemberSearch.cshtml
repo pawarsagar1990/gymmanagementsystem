@@ -1,0 +1,169 @@
+﻿@model IPagedList<MyProject.Models.MemberRegistration>
+@using PagedList
+@using PagedList.Mvc
+@using MyProject.Models
+@{
+    ViewBag.Title = "MemberSearch";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+@{
+    DbGymEntities db = new DbGymEntities();
+    List<PackageDetail> PackageDetails = db.PackageDetails.ToList();
+    List<SelectListItem> FinalName = new List<SelectListItem>();
+    foreach (PackageDetail item in PackageDetails)
+    {
+        FinalName.Add(new SelectListItem { Text = item.NumberOfMonth + "  " + item.Pkg_Month + "  " + "Rs. " + item.Pkg_Ammount + "  Per Package", Value = item.ID.ToString(), Selected = (Convert.ToString(ViewBag.SelectedPackage) == Convert.ToString(item.ID)) });
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Search Member
+            </div>
+            <form id="AddData" action="">                
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input class="form-control" name="Name" id="Name" placeholder="Enter Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Package</label>
+                                    @Html.DropDownList("PackageDetails_PK_ID", FinalName, "Select Package", htmlAttributes: new { @class = "form-control" })
+                                </div>
+                                @*<div class="form-group">
+                                    <label class="form-label">Package Start Date</label>
+                                    <div class="prepend-icon">
+                                        <input type="text" name="PackageStartDate" id="PackageStartDate" class="date-picker form-control" placeholder="Select a date...">
+                                        <i class="icon-calendar"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Package End Date</label>
+                                    <div class="prepend-icon">
+                                        <input type="text" name="PackageEndDate" id="PackageEndDate" class="date-picker form-control" placeholder="Select a date...">
+                                        <i class="icon-calendar"></i>
+                                    </div>
+                                </div>*@
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Mobile Number</label>
+                                    <input class="form-control" type="number" name="MobileNumber" id="MobileNumber" placeholder="Enter mobile number">
+                                </div>
+                                @*<div class="form-group">
+                                    <label class="control-label">Paying Amount</label>
+                                    <input class="form-control" type="number" name="Paid_Amount" id="Paid_Amount" placeholder="Enter Paying Amount">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Due Amount</label>
+                                    <input class="form-control" type="number" name="Due_Amount" id="Due_Amount" placeholder="Enter Due Amount">
+                                </div>
+                                <div class="form-group" style="margin-bottom:-8px;">
+                                    <label class="form-label">Next Payment Date</label>
+                                    <div class="prepend-icon">
+                                        <input type="text" name="NextPaymentDate" id="NextPaymentDate" class="date-picker form-control" placeholder="Select a date...">
+                                        <i class="icon-calendar"></i>
+                                    </div>
+                                </div>*@
+                                <div class="form-group" style="margin-top:40px;">
+                                    <button type="submit" class="btn btn-embossed btn-primary">Search</button>
+                                    <button type="Reset" class="btn btn-embossed btn-primary" onclick="window.location.href='/MemberSearch'">Cancel</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>                                
+                                <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
+                                <th> Package </th>
+                                <th> Package Start Date </th>
+                                <th> Package End Date </th>
+                                <th> Remaining Days </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            var images = @Url.Content("~/Images/ProfilePic/" + item.ProfilePic);
+
+                                        }
+                                        <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
+                                        @Html.DisplayFor(modelItem => item.MemberName)
+                                    </td>                                    
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MobileNumber)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth)
+                                        Month
+                                    </td>
+
+                                    <td>
+                                        @{ string PackageStartDate = item.TransactionDetails.Count > 0 ? String.Format("{0:dd/MM/yyyy}", item.TransactionDetails.LastOrDefault().PackageStartDate) : "";}
+                                        @PackageStartDate                                        
+                                    </td>
+
+                                    <td>
+                                        @{ string PackageEndDate = item.TransactionDetails.Count > 0 ? String.Format("{0:dd/MM/yyyy}", item.TransactionDetails.LastOrDefault().PackageEndDate) : "";}
+                                        @PackageEndDate                                        
+                                    </td>
+
+                                    <td>
+                                        @{ 
+                                            if (item.TransactionDetails.Count > 0)
+                                            {
+                                                DateTime dtPackageEnd = (DateTime)item.TransactionDetails.LastOrDefault().PackageEndDate;
+                                                DateTime dtPackageStart = (DateTime)item.TransactionDetails.LastOrDefault().PackageStartDate;
+                                                int remainingDays = 0;
+                                                if (dtPackageStart >= DateTime.Now){
+                                                    remainingDays = (int)dtPackageEnd.Subtract(dtPackageStart).TotalDays;
+                                                }
+                                                else {
+                                                    remainingDays = (int)dtPackageEnd.Subtract(DateTime.Now).TotalDays;
+                                                }
+
+                                                @remainingDays;
+                                            }
+                                         }
+                                    </td>
+
+                                    <td>
+                                        <h4>
+                                            <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>&nbsp;
+                                            <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>&nbsp;
+                                            <abbr title="Make Payment for '@item.MemberName'"><a href="@Url.Action("MemberPayment", "Admin", new { @id = item.ID })"><span class="fa fa-rupee"></span></a></abbr>&nbsp;
+                                            <abbr title="Physical Assessment '@item.MemberName'"><a href="@Url.Action("PhysicalAssessment", "Admin", new { @id = item.ID })"><span class="fa fa-bar-chart"></span></a></abbr>&nbsp;
+                                            <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>&nbsp;
+                                        </h4>
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("MemberSearch", new { page }))
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+
+</div>
