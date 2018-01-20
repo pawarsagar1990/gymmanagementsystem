@@ -112,8 +112,18 @@
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth)
-                                        Month
+                                        @{  int numberOfMonth = 0; string numberOfMonthText = "";
+                                            if (item.TransactionDetails.Count > 0)
+                                            {
+                                                numberOfMonth = (int)item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth;
+                                                if (numberOfMonth > 0)
+                                                {
+                                                    numberOfMonthText = numberOfMonth + " Month";
+                                                }
+                                                <span>@numberOfMonthText</span>
+                                                //@Html.DisplayFor(modelItem => item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth)                                                
+                                            }
+                                        }
                                     </td>
 
                                     <td>

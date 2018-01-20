@@ -454,7 +454,7 @@ namespace MyProject.Controllers
                 ViewBag.Name = mr.MemberName;
                 ViewBag.Mobile = mr.MobileNumber;
                 ViewBag.MemberID = id;
-                ViewBag.SelectedPackage = mr.Package_ID;
+                ViewBag.SelectedPackage = mr.TransactionDetails.Count > 0 ? mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID : 0;
                 List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID.Value.Equals(id)).ToList();
                 return View(MemberTransactionDetails.ToPagedList(page ?? 1, 10));
             }
@@ -497,5 +497,30 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+
+        [Authorize(Roles = "A")]
+        public ActionResult MemberSearch(int? page)
+        {
+            try
+            {
+                ///search area starts
+                string memberName = Request.QueryString["Name"] != null ? Request.QueryString["Name"] : "";
+                int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
+                string memberMobileNumber = Request.QueryString["MobileNumber"] != null ? Request.QueryString["MobileNumber"] : "";
+                List<MemberRegistration> mr = db.MemberRegistrations
+                    .Where(member => member.MemberName.Contains(memberName))
+                    .Where(member => member.MobileNumber.Contains(memberMobileNumber))
+                    //.Where(member => member.TransactionDetails.LastOrDefault().PackageDetails_PK_ID == memberSelectedPackage)                 
+                    .OrderByDescending(m => m.ID).ToList();
+                 
+                return View(mr.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
     }
 }
