@@ -25,6 +25,7 @@
                                 <thead>
                                     <tr>
                                         <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>
+                                        <th> @Html.DisplayNameFor(model => model.First().MembershipID)</th>
                                         <th> @Html.DisplayNameFor(model => model.First().Email)</th>
                                         <th> @Html.DisplayNameFor(model => model.First().DOJ) </th>
                                         <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
@@ -44,6 +45,9 @@
                                                 }
                                                 <img src="@images" style="height:30px; width:30px; margin-top: 12px;" class="img-circle special-img" />
                                                 @Html.DisplayFor(modelItem => item.MemberName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MembershipID)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Email)

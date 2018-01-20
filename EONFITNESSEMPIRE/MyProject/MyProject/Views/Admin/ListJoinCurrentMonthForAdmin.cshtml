@@ -1,4 +1,4 @@
-﻿@model IPagedList<MyProject.Models.Confirm_MemberRegistration>
+﻿@model IPagedList<MyProject.Models.MemberRegistration>
 @using PagedList
 @using PagedList.Mvc
 @using MyProject.Models
@@ -13,7 +13,7 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        Join In Current Month //@DateTime.Now.Month.ToString();
+        Join In Current Month @DateTime.Now.ToString("MMMM")
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -21,6 +21,7 @@
                 <thead>
                     <tr>
                         <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>
+                        <th> @Html.DisplayNameFor(model => model.First().MembershipID)</th>
                         <th> @Html.DisplayNameFor(model => model.First().Email)</th>
                         <th> @Html.DisplayNameFor(model => model.First().DOJ) </th>
                         <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
@@ -41,6 +42,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MembershipID)
                             </td>
                             <td>
                                 @{

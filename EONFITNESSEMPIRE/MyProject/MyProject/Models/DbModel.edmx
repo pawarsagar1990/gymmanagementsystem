@@ -98,6 +98,7 @@
           <Property Name="Flag" Type="nvarchar" MaxLength="5" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="Pkg_Description" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="PaymentDetails">
           <Key>
@@ -410,6 +411,7 @@
           <Property Name="NumberOfMonth" Type="Int32" />
           <NavigationProperty Name="Confirm_MemberRegistration" Relationship="DbGymModel.FK_Confirm_MemberRegistration_PackageDetails" FromRole="PackageDetail" ToRole="Confirm_MemberRegistration" />
           <NavigationProperty Name="TransactionDetails" Relationship="DbGymModel.FK_TransactionDetails_PackageDetails" FromRole="PackageDetail" ToRole="TransactionDetail" />
+          <Property Name="Pkg_Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PaymentDetail">
           <Key>
@@ -771,6 +773,7 @@
           <EntitySetMapping Name="PackageDetails">
             <EntityTypeMapping TypeName="DbGymModel.PackageDetail">
               <MappingFragment StoreEntitySet="PackageDetails">
+                <ScalarProperty Name="Pkg_Description" ColumnName="Pkg_Description" />
                 <ScalarProperty Name="NumberOfMonth" ColumnName="NumberOfMonth" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Pkg_Month" ColumnName="Pkg_Month" />

@@ -19,6 +19,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th> @Html.DisplayNameFor(model => model.First().MemberRegistration.MemberName) </th>
+                                <th> @Html.DisplayNameFor(model => model.First().MemberRegistration.MembershipID) </th>
                                 <th> @Html.DisplayNameFor(model => model.First().Email) </th>
                                 <th> @Html.DisplayNameFor(model => model.First().Password)</th>
                                 <th> @Html.DisplayNameFor(model => model.First().Mobile) </th>
@@ -33,6 +35,12 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MemberRegistration.MemberName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MemberRegistration.MembershipID)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>

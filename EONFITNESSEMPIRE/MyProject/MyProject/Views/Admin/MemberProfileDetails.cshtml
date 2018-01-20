@@ -53,6 +53,10 @@
                                         <td style="padding-right: 256px;">@Html.DisplayFor(model => model.MemberName)</td>
                                     </tr>
                                     <tr style="font-size:15px;">
+                                        <td><strong>Name:</strong></td>
+                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.MembershipID)</td>
+                                    </tr>
+                                    <tr style="font-size:15px;">
                                         <td><strong>Mobile No.:</strong></td>
                                         <td style="padding-right: 256px;">@Html.DisplayFor(model => model.MobileNumber)</td>
                                     </tr>
@@ -60,13 +64,14 @@
                                         <td><strong>Email:</strong></td>
                                         <td style="padding-right: 256px;">@Html.DisplayFor(model => model.Email)</td>
                                     </tr>
+                                    
                                     <tr style="font-size:15px;">
                                         <td><strong>Date of Birth:</strong></td>
-                                        <td style="padding-right: 256px;">@Html.DisplayFor(model => model.DOB)</td>
+                                        <td style="padding-right: 256px;">@ViewBag.DOB</td>
                                     </tr>
                                     <tr style="font-size:15px;">
                                         <td><strong>Date of Joining:</strong></td>
-                                        <td>@Html.DisplayFor(model => model.DOJ)</td>
+                                        <td>@ViewBag.DOJ</td>
                                     </tr>
                                     <tr style="font-size:15px;">
                                         <td><strong>Emergency Contact Name:     </strong></td>

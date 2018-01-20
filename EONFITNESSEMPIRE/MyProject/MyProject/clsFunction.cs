@@ -55,13 +55,53 @@ namespace MyProject
                 {
                     DateTime dt = (DateTime)item.PackageEndDate;
                     DateTime EndDateEarlier = dt.AddDays(-5);
-                    if (dt == today)
+                    if (EndDateEarlier == today)
                     {
                         count++;
                     }
                 }
             }
             return count;
+        }
+        public IEnumerable<MemberRegistration> RenewListNotification()
+        {
+            try
+            {
+                int count = 0;
+                string status = "YES";
+                DateTime today = DateTime.Today;
+                List<MemberRegistration> lstdata = new List<MemberRegistration>();
+                List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+                //List<TransactionDetail> data = db.TransactionDetails.ToList();
+               foreach(MemberRegistration item in mr)
+                {
+                    if(item != null)
+                    {
+                        int id = item.ID;
+                        // int TransactionID = data.
+                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).FirstOrDefault();
+                        if(data != null)
+                        {
+                            DateTime dt = (DateTime)data.PackageEndDate;
+                            DateTime EndDateEarlier = dt.AddDays(-5);
+                            if (EndDateEarlier == today)
+                            {
+                                int? DataID = data.MemberRegistration_PK_ID;
+                                MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
+                                lstdata.Add(lstmr);
+                                count++;
+                            }
+                        }
+                    }
+                }
+                HttpContext.Current.Session["RenewMemberCount"] = count;
+                //mr.TransactionDetails.Count > 0 ? mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID : 0;
+                return lstdata;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public int RemainsDays(int id)
         {
@@ -72,6 +112,7 @@ namespace MyProject
                 if (mr != null)
                 {
                     int pdid = Convert.ToInt32(mr.Package_ID);
+                    
                     PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(pdid)).FirstOrDefault();
                     int month = Convert.ToInt32(pd.NumberOfMonth);
                     DateTime DOJ = (DateTime)mr.DOJ;
@@ -154,10 +195,14 @@ namespace MyProject
         }
         public IEnumerable<MemberRegistration> ListJoinCurrentMonth()
         {
-            int currentmonth = DateTime.Now.Month;
-            int currentYear = DateTime.Now.Year;
-            string dt = currentYear+"-"+currentmonth+"-1";
-            List<MemberRegistration> lst = db.MemberRegistrations.ToList();
+            var StartDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            var EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month));
+
+            List<MemberRegistration> lst = db.MemberRegistrations
+                .Where(m => m.DOJ >= StartDate)
+                .Where(m => m.DOJ <= EndDate)
+                .OrderByDescending(m => m.ID).ToList();
+
             //string CurrentMonth = DateTime.Now.Month.ToString();
             //string CurrentYear = DateTime.Now.Year.ToString();
             //foreach(var item in lst)

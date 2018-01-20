@@ -53,11 +53,10 @@ namespace MyProject.Controllers
         }
         public ActionResult Home(int? page)
         {
-            int currentmonth = DateTime.Now.Month;
-            int currentYear = DateTime.Now.Year;
-            string dt = currentYear + "-" + currentmonth + "-1";
+           
             int id = Convert.ToInt32(Session["ID"]);
-            ViewBag.RenewMemberCount = objcls.RenewMemberCount();
+            objcls.RenewListNotification();
+           // ViewBag.RenewMemberCount = objcls.RenewMemberCount();
             string userrole = objcls.Roles();
             try
             {
@@ -274,6 +273,8 @@ namespace MyProject.Controllers
                 MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
                 if (mr != null)
                 {
+                    ViewBag.DOJ = String.Format("{0:dd/MM/yyyy}",mr.DOJ);
+                    ViewBag.DOB = String.Format("{0:dd/MM/yyyy}", mr.DOB);
                     ViewBag.date = objcls.RemainsDays(id);
                 }
                 return View(mr);
@@ -480,16 +481,15 @@ namespace MyProject.Controllers
                 throw;
             }
         }
-        public ActionResult RenewMemberList()
+        public ActionResult RenewMemberList(int? page)
         {
             try
             {
-                string status = "YES";
-                List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
-                DateTime today = DateTime.Today;
-                DateTime sevenDaysEarlier = today.AddDays(-5);
-                
-                return View();
+                //string status = "YES";
+                //List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+                //DateTime today = DateTime.Today;
+                //DateTime sevenDaysEarlier = today.AddDays(-5);RenewListNotification()
+                return View((objcls.RenewListNotification()).ToPagedList(page ?? 1, 10));
             }
             catch (Exception)
             {

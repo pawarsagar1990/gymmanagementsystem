@@ -18,6 +18,11 @@ namespace MyProject
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Admin", action = "Login", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Home",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Home", id = UrlParameter.Optional }
+            );
 
         }
     }
