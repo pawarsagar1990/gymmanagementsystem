@@ -7,55 +7,83 @@
     Layout = "~/Views/Shared/AdminMaster.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                Package Details
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th> @Html.DisplayNameFor(model => model.First().NumberOfMonth) </th>
-                                <th> @Html.DisplayNameFor(model => model.First().Pkg_Ammount)</th>
-                                <th> @Html.DisplayNameFor(model => model.First().CreatedOn) </th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NumberOfMonth) - @Html.DisplayFor(modelItem => item.Pkg_Month)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Pkg_Ammount)
-                                    </td>
-                                    <td>
-                                        @{
-                                            string dateString = String.Format("{0:dd/MM/yyyy}", item.CreatedOn);
-                                        }
-                                        @Html.DisplayFor(modelItem => dateString)
-                                    </td>
-                                    <td>
-                                        <h4>
-                                            <abbr title="Details"><a href="@Url.Action("PackageDataEdit", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
-                                            <abbr title="Delete"><a href="@Url.Action("PackageDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
-                                        </h4>
-                                    </td>
-                                </tr>
-                                            }
-                        </tbody>
-                    </table>
-                    @Html.PagedListPager(Model, page => Url.Action("PackageListForAdmin", new { page }))
+<form id="PackageEntry">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2><strong>Package Entry</strong></h2>
                 </div>
-                <!-- /.table-responsive -->
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Number of Month</label>
+                                    <input class="form-control" name="NumberOfMonth" id="NumberOfMonth" placeholder="Enter Number of Month">
+                                    @*@Html.ValidationMessageFor(m => m.NumberOfMonth, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Package Group</label>
+                                    <input class="form-control" name="Pkg_Month" id="Pkg_Month" placeholder="Enter Month or Year">
+                                    @*@Html.ValidationMessageFor(m => m.Pkg_Month, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Package Ammount</label>
+                                    <input class="form-control" name="Pkg_Ammount" id="Pkg_Ammount" placeholder="Enter Package Ammount">
+                                    @*@Html.ValidationMessageFor(m => m.Pkg_Ammount, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Package Description</label>
+                                    <input class="form-control" name="Pkg_Description" id="Pkg_Description" placeholder="Enter Month or Year">
+                                    @*@Html.ValidationMessageFor(m => m.Pkg_Month, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <input class="form-control" name="Flag" value="YES" id="Flag" type="checkbox">
+                                    @*@Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })*@
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-embossed btn-primary">Save</button>
+                                    <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.panel-body -->
         </div>
     </div>
+</form>
+                   
+
+<div class="row">
+    <div class="col-md-12">
+       @Html.Partial("_PackageList")
+    </div>
 </div>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $("#PackageEntry").on('submit', function (e) {
+
+            e.preventDefault();
+            var $this = $(this);
+            var dataToPost = $(this).serialize();
+
+            $.post("/Admin/PackgeDataSave", dataToPost)
+                .done(function (response, status, jqxhr) {
+                    alert("Physical Assessment Successfully Added.");
+                    window.location.href = '/Admin/PackageListForAdmin'
+                })
+                .fail(function (jqxhr, status, error) {
+                    // this is the ""error"" callback
+                })
+        })
+    });
+</script>

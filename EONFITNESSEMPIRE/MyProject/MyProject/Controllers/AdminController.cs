@@ -285,20 +285,19 @@ namespace MyProject.Controllers
                 throw;
             }
         }
-        public ActionResult PackageEntry()
+       
+        public ActionResult PackageListForAdmin(int? page)
         {
             try
             {
-                return View();
+                return View((objcls.PkgListAdmin()).ToPagedList(page ?? 1, 10));
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
-        [HttpPost]
-        public ActionResult PackageEntry(PackageDetail pd)
+        public void PackgeDataSave(PackageDetail pd)
         {
             try
             {
@@ -309,22 +308,10 @@ namespace MyProject.Controllers
                 db.PackageDetails.Add(pd);
                 db.SaveChanges();
                 ModelState.Clear();
-                ViewBag.Message = "Package Entry Successfully Done!!!";
-                return View();
             }
             catch (Exception)
             {
-                throw;
-            }
-        }
-        public ActionResult PackageListForAdmin(int? page)
-        {
-            try
-            {
-                return View((objcls.PkgListAdmin()).ToPagedList(page ?? 1, 10));
-            }
-            catch (Exception)
-            {
+
                 throw;
             }
         }
@@ -372,7 +359,6 @@ namespace MyProject.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -434,6 +420,7 @@ namespace MyProject.Controllers
                 throw;
             }
         }
+       
         public ActionResult ListJoinCurrentMonthForAdmin(int? page)
         {
             try
@@ -510,9 +497,36 @@ namespace MyProject.Controllers
                 List<MemberRegistration> mr = db.MemberRegistrations
                     .Where(member => member.MemberName.Contains(memberName))
                     .Where(member => member.MobileNumber.Contains(memberMobileNumber))
-                    //.Where(member => member.TransactionDetails.LastOrDefault().PackageDetails_PK_ID == memberSelectedPackage)                 
+                    //.Where(member => member.TransactionDetails.LastOrDefault().PackageDetails_PK_ID == memberSelectedPackage)    
+                     //.Where(member=> member.Package_ID.co)       
                     .OrderByDescending(m => m.ID).ToList();
                  
+                return View(mr.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult MemberSearch(int? page, FormCollection collection)
+        {
+            try
+            {
+                ///search area starts
+                string memberName = Request.QueryString["Name"] != null ? Request.QueryString["Name"] : "";
+                int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != ""? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
+               // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
+                string memberMobileNumber = Request.QueryString["MobileNumber"] != null ? Request.QueryString["MobileNumber"] : "";
+                List<MemberRegistration> mr = db.MemberRegistrations
+                    .Where(member => member.MemberName.Contains(memberName))
+                    .Where(member => member.MobileNumber.Contains(memberMobileNumber))
+                     // .Where(member => member.TransactionDetails.Where(m=>m.PackageDetails_PK_ID == memberSelectedPackage).FirstOrDefault())
+                    // .Where(member => member.TransactionDetails.Contains(Convert.ToString(memberSelectedPackage)))    
+
+                    // .Where(member => member.Package_ID == memberSelectedPackage)
+                    .OrderByDescending(m => m.ID).ToList();
+
                 return View(mr.ToPagedList(page ?? 1, 10));
             }
             catch (Exception)
