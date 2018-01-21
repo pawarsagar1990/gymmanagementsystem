@@ -552,25 +552,25 @@ namespace MyProject.Controllers
             }
 
         }
-        public ActionResult deletefile()
-        {
-            try
-            {
-                string filenamestart = "._";
-                string completePath = Server.MapPath("~/assets/" + filenamestart);
+        //public ActionResult deletefile()
+        //{
+        //    try
+        //    {
+        //        string filenamestart = "._";
+        //        string completePath = Server.MapPath("~/assets/" + filenamestart);
 
-                if (System.IO.File.Exists(completePath))
-                {
+        //        if (System.IO.File.Exists(completePath))
+        //        {
 
-                    System.IO.File.Delete(completePath);
-                }
-                return View();
-            }
-            catch (Exception)
-            {
+        //            System.IO.File.Delete(completePath);
+        //        }
+        //        return View();
+        //    }
+        //    catch (Exception)
+        //    {
 
-                throw;
-            }
-        }
+        //        throw;
+        //    }
+        //}
     }
 }
