@@ -107,11 +107,6 @@
                                                 @Html.ValidationMessageFor(m => m.DOJ, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Status</label>
-                                            <input class="form-control" name="Flag" value="YES" id="Flag" type="checkbox">
-                                            @Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })
-                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
@@ -159,17 +154,16 @@
                                             @Html.ValidationMessageFor(model => model.Payment_Type_ID, "", new { @class = "text-danger" })
 
                                         </div>*@
-
+                                        @if (ViewBag.Roles != null)
+                                        {
+                                            <div class="form-group">
+                                                <label>Select User Role</label>
+                                                @Html.DropDownList("RolesForAll", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select User Role", htmlAttributes: new { @class = "form-control" })
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                                @if (ViewBag.Roles != null)
-                                {
-                                    <div class="form-group">
-                                        <label>Select User Role</label>
-                                        @Html.DropDownList("RolesForAll", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select User Role", htmlAttributes: new { @class = "form-control" })
-                                    </div>
-                                }
-
+                               
                                 <div class="form-group">
                                     <p>
                                         <strong>Photo Upload</strong>
@@ -185,6 +179,12 @@
                                         </span>
                                         <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                                     </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <input class="form-control" name="Flag" value="YES" id="Flag" type="checkbox">
+                                    @Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })
                                 </div>
                                 @*<div class="form-group">
                                     <label class="control-label">Installment_Method</label>

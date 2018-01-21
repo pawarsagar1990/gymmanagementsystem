@@ -204,6 +204,7 @@ namespace MyProject.Controllers
         {
             try
             {
+
                 MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
                 return View(mr);
             }
@@ -213,10 +214,26 @@ namespace MyProject.Controllers
             }
         }
         [HttpPost]
-        public ActionResult MemberEditData(MemberRegistration mr)
+        public ActionResult MemberEditData(MemberRegistration mr, HttpPostedFileBase file)
         {
             try
             {
+                string path = null;
+                string fname = null;
+                if (file != null && file.ContentLength > 0)
+
+                    try
+                    {
+                        var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                        path = Path.Combine(Server.MapPath(@"~/Images/ProfilePic"), Path.GetFileName(fileName));
+                        fname = Path.GetFileName(fileName);
+                        file.SaveAs(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+                mr.ProfilePic = fname;
                 db.Entry(mr).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 TempData["UpdateMemberData"] = mr.MemberName + "Successfully Updated!";
@@ -271,11 +288,11 @@ namespace MyProject.Controllers
             try
             {
                 MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
-                if (mr != null)
+                if (mr != null && mr.DOB != null && mr.DOJ != null)
                 {
                     ViewBag.DOJ = String.Format("{0:dd/MM/yyyy}",mr.DOJ);
                     ViewBag.DOB = String.Format("{0:dd/MM/yyyy}", mr.DOB);
-                    ViewBag.date = objcls.RemainsDays(id);
+                    ViewBag.days = objcls.RemainsDays(id);
                 }
                 return View(mr);
             }

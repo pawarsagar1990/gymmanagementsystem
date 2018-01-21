@@ -30,12 +30,12 @@
                        
                         <div class="row">
                             <div class="col-md-4"><strong style="font-size: 20px;">Profile</strong></div> @*padding-left:318px;  padding-left:415px;*@
-                            <div class="col-md-4"><strong style="font-size: 20px;"> Remaining Days:  @ViewBag.date </strong></div>
+                            <div class="col-md-4"><strong style="font-size: 20px;">Remaining Days:  @ViewBag.days </strong></div>
                             <div class="col-md-4">
                                 @{ string status = "";
-                                    if (ViewBag.date != null)
+                                    if (ViewBag.days != null)
                                     {
-                                        if (ViewBag.date < 0)
+                                        if (ViewBag.days < 0)
                                         { status = "Deactive";  <strong style="color:red;font-size: 20px;">@status</strong> }
                                         else
                                         { status = "Active";  <strong style="color:cornflowerblue;font-size: 20px;">@status</strong> }
@@ -74,11 +74,11 @@
                                         <td>@ViewBag.DOJ</td>
                                     </tr>
                                     <tr style="font-size:15px;">
-                                        <td><strong>Emergency Contact Name:     </strong></td>
+                                        <td><strong>Emergency Contact Name:</strong></td>
                                         <td style="padding-right: 256px;">@Html.DisplayFor(model => model.EmergencyContactName)</td>
                                     </tr>
                                     <tr style="font-size:15px;">
-                                        <td><strong>Emergency Contac tNumber:    </strong></td>
+                                        <td><strong>Emergency Contact Number:</strong></td>
                                         <td style="padding-right: 256px;">@Html.DisplayFor(model => model.EmergencyContactNumber)</td>
                                     </tr>
                                     @*<p style="font-size:20px;"><strong>Email:</strong>  @Html.DisplayFor(model => model.Flag = YES ? YES : NO)</p>*@
@@ -90,7 +90,7 @@
                                     string imgname = Model.ProfilePic;
                                     var images = @Url.Content("~/Images/ProfilePic/" + imgname);
 
-                                }<img src="@images" style="height:200px; width:250px;" class="img-responsive"/>
+                                }<img src="@images" style="height:200px; width:250px;" class="img-responsive" alt="No Img"/>
                                 <table class="table table-striped" style="margin-top: 28px;">
                                     <tr style="font-size:15px;">
                                         <td><strong>Status:</strong></td>
@@ -112,11 +112,11 @@
                                     </tr>*@
                                     <tr style="font-size:15px;">
                                         <td><strong>Package Month:</strong></td>
-                                        <td style="padding-right:98px;">@Html.DisplayFor(model => model.PackageDetail.Pkg_Month)</td>
+                                        <td style="padding-right:98px;">@Html.DisplayFor(model => model.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth) Month</td>
                                     </tr>
                                     <tr style="font-size:15px;">
                                         <td><strong>Total Amount:</strong></td>
-                                        <td style="padding-right: 143px;">@Html.DisplayFor(model => model.PackageDetail.Pkg_Ammount)</td>
+                                        <td style="padding-right: 143px;">@Html.DisplayFor(model => model.TransactionDetails.LastOrDefault().PackageDetail.Pkg_Ammount)</td>
                                     </tr>
                                 </table>
 
