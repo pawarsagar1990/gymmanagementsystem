@@ -105,39 +105,30 @@ namespace MyProject
         }
         public int RemainsDays(int id)
         {
-            int remainingDays = 0;
+            int days = 0;
             try
             {
                 MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
                 if (mr != null)
                 {
-                    //int pdid = Convert.ToInt32(mr.Package_ID);
-                    
-                    //PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(pdid)).FirstOrDefault();
-                    //int month = Convert.ToInt32(pd.NumberOfMonth);
-                    //DateTime DOJ = (DateTime)mr.DOJ;
-                    //DateTime EndDate = DOJ.AddMonths(month);
-                    //DateTime TodayDate = DateTime.Now;
-                    //TimeSpan ResultDate = (EndDate - TodayDate);
-                    //days = Convert.ToInt32(ResultDate.TotalDays);
-                    DateTime dtPackageEnd = (DateTime)mr.TransactionDetails.LastOrDefault().PackageEndDate;
-                    DateTime dtPackageStart = (DateTime)mr.TransactionDetails.LastOrDefault().PackageStartDate;
-                    
-                    if (dtPackageStart >= DateTime.Now)
+                    if (mr.TransactionDetails.Count > 0)
                     {
-                        remainingDays = (int)dtPackageEnd.Subtract(dtPackageStart).TotalDays;
-                    }
-                    else
-                    {
-                        remainingDays = (int)dtPackageEnd.Subtract(DateTime.Now).TotalDays;
-                    }
+                        int pdid = Convert.ToInt32(mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID);
+                        PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(pdid)).FirstOrDefault();
+                        int month = Convert.ToInt32(pd.NumberOfMonth);
+                        DateTime DOJ = (DateTime)mr.DOJ;
+                        DateTime EndDate = DOJ.AddMonths(month);
+                        DateTime TodayDate = DateTime.Now;
+                        TimeSpan ResultDate = (EndDate - TodayDate);
+                        days = Convert.ToInt32(ResultDate.TotalDays);
+                    }                    
                 }
+                return days;
             }
             catch (Exception)
             {
                 throw;
             }
-            return remainingDays;
         }
         //public  AdminHome()
         //{

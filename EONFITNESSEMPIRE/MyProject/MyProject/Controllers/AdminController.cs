@@ -484,23 +484,7 @@ namespace MyProject.Controllers
 
                 throw;
             }
-        }
-        public ActionResult RenewMemberList(int? page)
-        {
-            try
-            {
-                //string status = "YES";
-                //List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
-                //DateTime today = DateTime.Today;
-                //DateTime sevenDaysEarlier = today.AddDays(-5);RenewListNotification()
-                return View((objcls.RenewListNotification()).ToPagedList(page ?? 1, 10));
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        }      
 
         [Authorize(Roles = "A")]
         public ActionResult MemberSearch(int? page)
@@ -532,25 +516,82 @@ namespace MyProject.Controllers
             {
                 ///search area starts
                 string memberName = Request.QueryString["Name"] != null ? Request.QueryString["Name"] : "";
-                int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != ""? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
-               // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
+                int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
+                // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
                 string memberMobileNumber = Request.QueryString["MobileNumber"] != null ? Request.QueryString["MobileNumber"] : "";
-                List<MemberRegistration> mr = db.MemberRegistrations
-                    .Where(member => member.MemberName.Contains(memberName))
-                    .Where(member => member.MobileNumber.Contains(memberMobileNumber))
-                     // .Where(member => member.TransactionDetails.Where(m=>m.PackageDetails_PK_ID == memberSelectedPackage).FirstOrDefault())
-                    // .Where(member => member.TransactionDetails.Contains(Convert.ToString(memberSelectedPackage)))    
+                if (memberSelectedPackage > 0)
+                {
+                    var td = from trandetail in db.TransactionDetails
+                             where trandetail.PackageDetails_PK_ID == memberSelectedPackage
+                             group trandetail by trandetail.MemberRegistration_PK_ID into g
+                             select new { MemberId = g.Key, Date = g.Max(t => t.Payment_Date) };
 
-                    // .Where(member => member.Package_ID == memberSelectedPackage)
-                    .OrderByDescending(m => m.ID).ToList();
+                    var md = (from member in db.MemberRegistrations
+                              join t in td
+                              on member.ID equals t.MemberId
+                              orderby member.ID
+                              select member).ToList();
 
-                return View(mr.ToPagedList(page ?? 1, 10));
+                    var withMemberSearch = (from members in md
+                                            where members.MemberName.Contains(memberName) || members.MobileNumber.Contains(memberMobileNumber)                                            
+                                            select members).ToList();
+
+                    return View(withMemberSearch.ToPagedList(page ?? 1, 10));
+                }
+                else
+                {
+                    List<MemberRegistration> mr = db.MemberRegistrations
+                                        .Where(member => member.MemberName.Contains(memberName))
+                                        .Where(member => member.MobileNumber.Contains(memberMobileNumber))
+                                        .OrderByDescending(m => m.ID).ToList();
+                    return View(mr.ToPagedList(page ?? 1, 10));
+                }
             }
             catch (Exception)
             {
                 throw;
             }
 
+        }
+
+        public ActionResult RenewMemberList(int? page)
+        {
+            try
+            {
+                int count = 0;
+                string status = "YES";
+                DateTime today = DateTime.Today;
+                List<MemberRegistration> lstdata = new List<MemberRegistration>();
+                List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+                //List<TransactionDetail> data = db.TransactionDetails.ToList();
+                foreach (MemberRegistration item in mr)
+                {
+                    if (item != null && item.TransactionDetails.Count > 0)
+                    {
+                        int id = item.ID;
+                        // int TransactionID = data.
+
+                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).OrderByDescending(o => o.TransactionDetailsID).FirstOrDefault();
+                        if (data != null)
+                        {
+                            DateTime dt = (DateTime)data.PackageEndDate;
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5)
+                            {
+                                int? DataID = data.MemberRegistration_PK_ID;
+                                MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
+                                lstdata.Add(lstmr);
+                                count++;
+                            }
+                        }
+                    }
+                }
+                //mr.TransactionDetails.Count > 0 ? mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID : 0;                
+                return View(lstdata.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         //public ActionResult deletefile()
         //{
