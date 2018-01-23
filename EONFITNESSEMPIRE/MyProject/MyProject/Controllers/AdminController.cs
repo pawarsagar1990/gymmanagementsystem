@@ -56,7 +56,7 @@ namespace MyProject.Controllers
            
             int id = Convert.ToInt32(Session["ID"]);
             objcls.RenewListNotification();
-           // ViewBag.RenewMemberCount = objcls.RenewMemberCount();
+            ViewBag.RenewMemberCount = HttpContext.Session["RenewMemberCount"].ToString();
             string userrole = objcls.Roles();
             try
             {
@@ -515,10 +515,10 @@ namespace MyProject.Controllers
             try
             {
                 ///search area starts
-                string memberName = Request.QueryString["Name"] != null ? Request.QueryString["Name"] : "";
+                string memberName = collection["Name"] != null ? collection["Name"] : "";
                 int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
                 // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
-                string memberMobileNumber = Request.QueryString["MobileNumber"] != null ? Request.QueryString["MobileNumber"] : "";
+                string memberMobileNumber = collection["MobileNumber"] != null ? collection["MobileNumber"] : "";
                 if (memberSelectedPackage > 0)
                 {
                     var td = from trandetail in db.TransactionDetails

@@ -79,12 +79,11 @@ namespace MyProject
                     {
                         int id = item.ID;
                         // int TransactionID = data.
-                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).FirstOrDefault();
+                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).OrderByDescending(m=> m.TransactionDetailsID).FirstOrDefault();
                         if(data != null)
                         {
-                            DateTime dt = (DateTime)data.PackageEndDate;
-                            DateTime EndDateEarlier = dt.AddDays(-5);
-                            if (EndDateEarlier == today)
+                            DateTime pkgEndDate = (DateTime)data.PackageEndDate;
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5)
                             {
                                 int? DataID = data.MemberRegistration_PK_ID;
                                 MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
