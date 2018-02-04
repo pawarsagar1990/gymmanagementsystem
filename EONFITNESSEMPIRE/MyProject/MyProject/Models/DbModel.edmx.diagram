@@ -17,7 +17,7 @@
         <AssociationConnector Association="DbGymModel.FK_TransactionPayment_MemberRegistration" ManuallyRouted="false" />
         <AssociationConnector Association="DbGymModel.FK_UserLogin_MemberRegistration" ManuallyRouted="false" />
         <AssociationConnector Association="DbGymModel.FK_TransactionPayment_PaymentDetails" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DbGymModel.Andd" Width="1.5" PointX="5.375" PointY="4.375" />
+        <EntityTypeShape EntityType="DbGymModel.Andd" Width="1.5" PointX="5.25" PointY="6.25" />
         <EntityTypeShape EntityType="DbGymModel.Confirm_MemberRegistration" Width="1.5" PointX="4.75" PointY="0.5" />
         <EntityTypeShape EntityType="DbGymModel.GymClose" Width="1.5" PointX="7.375" PointY="4.375" />
         <AssociationConnector Association="DbGymModel.FK_Confirm_MemberRegistration_PackageDetails" />

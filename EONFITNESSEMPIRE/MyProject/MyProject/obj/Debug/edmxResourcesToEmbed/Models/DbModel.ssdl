@@ -142,6 +142,7 @@
     <Property Name="PaymentType" Type="nvarchar" MaxLength="15" />
     <Property Name="Paid_Amount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Due_Amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Discount_Amount" Type="decimal" Precision="18" Scale="0" />
     <Property Name="NextPaymentDate" Type="datetime" />
     <Property Name="Advance_Amount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="TotalPackagePayment" Type="decimal" Precision="18" Scale="2" />

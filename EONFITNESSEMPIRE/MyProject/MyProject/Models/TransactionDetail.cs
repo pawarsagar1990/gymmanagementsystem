@@ -11,8 +11,7 @@ namespace MyProject.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TransactionDetail
     {
         public int TransactionDetailsID { get; set; }
@@ -31,6 +30,7 @@ namespace MyProject.Models
         public string Description { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
+        public Nullable<decimal> Discount_Amount { get; set; }
     
         public virtual MemberRegistration MemberRegistration { get; set; }
         public virtual PackageDetail PackageDetail { get; set; }

@@ -79,12 +79,11 @@ namespace MyProject
                     {
                         int id = item.ID;
                         // int TransactionID = data.
-                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).FirstOrDefault();
+                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).OrderByDescending(m=> m.TransactionDetailsID).FirstOrDefault();
                         if(data != null)
                         {
-                            DateTime dt = (DateTime)data.PackageEndDate;
-                            DateTime EndDateEarlier = dt.AddDays(-5);
-                            if (EndDateEarlier == today)
+                            DateTime pkgEndDate = (DateTime)data.PackageEndDate;
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5 || (data.NextPaymentDate != null ? data.NextPaymentDate.Value.Subtract(DateTime.Now).TotalDays <= 5 : false))
                             {
                                 int? DataID = data.MemberRegistration_PK_ID;
                                 MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
@@ -105,39 +104,30 @@ namespace MyProject
         }
         public int RemainsDays(int id)
         {
-            int remainingDays = 0;
+            int days = 0;
             try
             {
                 MemberRegistration mr = db.MemberRegistrations.Where(m => m.ID.Equals(id)).FirstOrDefault();
                 if (mr != null)
                 {
-                    //int pdid = Convert.ToInt32(mr.Package_ID);
-                    
-                    //PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(pdid)).FirstOrDefault();
-                    //int month = Convert.ToInt32(pd.NumberOfMonth);
-                    //DateTime DOJ = (DateTime)mr.DOJ;
-                    //DateTime EndDate = DOJ.AddMonths(month);
-                    //DateTime TodayDate = DateTime.Now;
-                    //TimeSpan ResultDate = (EndDate - TodayDate);
-                    //days = Convert.ToInt32(ResultDate.TotalDays);
-                    DateTime dtPackageEnd = (DateTime)mr.TransactionDetails.LastOrDefault().PackageEndDate;
-                    DateTime dtPackageStart = (DateTime)mr.TransactionDetails.LastOrDefault().PackageStartDate;
-                    
-                    if (dtPackageStart >= DateTime.Now)
+                    if (mr.TransactionDetails.Count > 0)
                     {
-                        remainingDays = (int)dtPackageEnd.Subtract(dtPackageStart).TotalDays;
-                    }
-                    else
-                    {
-                        remainingDays = (int)dtPackageEnd.Subtract(DateTime.Now).TotalDays;
-                    }
+                        int pdid = Convert.ToInt32(mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID);
+                        PackageDetail pd = db.PackageDetails.Where(m => m.ID.Equals(pdid)).FirstOrDefault();
+                        int month = Convert.ToInt32(pd.NumberOfMonth);
+                        DateTime DOJ = (DateTime)mr.DOJ;
+                        DateTime EndDate = DOJ.AddMonths(month);
+                        DateTime TodayDate = DateTime.Now;
+                        TimeSpan ResultDate = (EndDate - TodayDate);
+                        days = Convert.ToInt32(ResultDate.TotalDays);
+                    }                    
                 }
+                return days;
             }
             catch (Exception)
             {
                 throw;
             }
-            return remainingDays;
         }
         //public  AdminHome()
         //{

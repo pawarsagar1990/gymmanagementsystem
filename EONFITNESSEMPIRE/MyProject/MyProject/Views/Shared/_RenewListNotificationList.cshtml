@@ -15,15 +15,16 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th> @Html.DisplayNameFor(model => model.First().MemberName) </th>
                         <th> @Html.DisplayNameFor(model => model.First().MembershipID)</th>
-                        <th> @Html.DisplayNameFor(model => model.First().Email)</th>
-                        <th> @Html.DisplayNameFor(model => model.First().DOJ) </th>
                         <th> @Html.DisplayNameFor(model => model.First().MobileNumber) </th>
-                        <th> @Html.DisplayNameFor(model => model.First().City) </th>
+                        <th> Package </th>
+                        <th> Package Start Date </th>
+                        <th> Package End Date </th>
+                        <th> Remaining Days </th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -43,37 +44,67 @@
                                 @Html.DisplayFor(modelItem => item.MembershipID)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Email)
+                                @Html.DisplayFor(modelItem => item.MobileNumber)
+                            </td>
+                            <td>
+                                @{  int numberOfMonth = 0; string numberOfMonthText = "";
+                                    if (item.TransactionDetails.Count > 0)
+                                    {
+                                        numberOfMonth = (int)item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth;
+                                        if (numberOfMonth > 0)
+                                        {
+                                            numberOfMonthText = numberOfMonth + " Month";
+                                        }
+                                        <span>@numberOfMonthText</span>
+                                        //@Html.DisplayFor(modelItem => item.TransactionDetails.LastOrDefault().PackageDetail.NumberOfMonth)
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{ string PackageStartDate = item.TransactionDetails.Count > 0 ? String.Format("{0:dd/MM/yyyy}", item.TransactionDetails.LastOrDefault().PackageStartDate) : "";}
+                                @PackageStartDate
+                            </td>
+                            <td>
+                                @{ string PackageEndDate = item.TransactionDetails.Count > 0 ? String.Format("{0:dd/MM/yyyy}", item.TransactionDetails.LastOrDefault().PackageEndDate) : "";}
+                                @PackageEndDate
                             </td>
                             <td>
                                 @{
-                                    string dateString = String.Format("{0:dd/MM/yyyy}", item.DOJ);
+                                    if (item.TransactionDetails.Count > 0)
+                                    {
+                                        DateTime dtPackageEnd = (DateTime)item.TransactionDetails.LastOrDefault().PackageEndDate;
+                                        DateTime dtPackageStart = (DateTime)item.TransactionDetails.LastOrDefault().PackageStartDate;
+                                        int remainingDays = 0;
+                                        if (dtPackageStart >= DateTime.Now)
+                                        {
+                                            remainingDays = (int)dtPackageEnd.Subtract(dtPackageStart).TotalDays;
+                                        }
+                                        else
+                                        {
+                                            remainingDays = (int)dtPackageEnd.Subtract(DateTime.Now).TotalDays;
+                                        }
+
+                                        @remainingDays;
+                                    }
                                 }
-                                @Html.DisplayFor(modelItem => dateString)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MobileNumber)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.City)
-                            </td>
-
                             <td>
                                 <h4>
-                                    <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>
-                                    <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>
-                                    <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                    <abbr title="Edit '@item.MemberName'"><a href="@Url.Action("MemberEditData", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-edit"></span></a></abbr>&nbsp;
+                                    <abbr title="Show Profile '@item.MemberName'"><a href="@Url.Action("MemberProfileDetails", "Admin", new { @id = item.ID })"><span class=" glyphicon glyphicon-info-sign"></span></a></abbr>&nbsp;
+                                    <abbr title="Make Payment for '@item.MemberName'"><a href="@Url.Action("MemberPayment", "Admin", new { @id = item.ID })"><span class="fa fa-rupee"></span></a></abbr>&nbsp;
+                                    <abbr title="Physical Assessment '@item.MemberName'"><a href="@Url.Action("PhysicalAssessment", "Admin", new { @id = item.ID })"><span class="fa fa-bar-chart"></span></a></abbr>&nbsp;
+                                    <abbr title="Delete '@item.MemberName'"><a href="@Url.Action("MemberDataDelete", "Admin", new { @id = item.ID })"><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>&nbsp;
                                 </h4>
                             </td>
                         </tr>
                                     }
                 </tbody>
             </table>
-            @Html.PagedListPager(Model, page => Url.Action("MemberListForAdmin", "Admin", new { page }))
+            @Html.PagedListPager(Model, page => Url.Action("MemberSearch", new { page }))
         </div>
-        @Html.ActionLink("Back To Dashboard", "Home", "Admin")
         <!-- /.table-responsive -->
     </div>
+
     <!-- /.panel-body -->
 </div>

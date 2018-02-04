@@ -2,17 +2,61 @@
 @using PagedList
 @using PagedList.Mvc
 @using MyProject.Models
+@{
+    ViewBag.Title = "PaymentCollection";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-info">
-            <div class="panel-heading"> Member Payment Details
+            <div class="panel-heading">
+                Payment Collection Details
             </div>
+            <form id="AddData" action="/Admin/PaymentCollection" method="post">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Mobile Number</label>
+                                    <input class="form-control" type="number" name="MobileNumber" id="MobileNumber" placeholder="Enter mobile number" value="@ViewBag.MobileNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">From Date</label>
+                                    <div class="prepend-icon">
+                                        <input type="text" name="FromDate" id="FromDate" class="date-picker form-control" placeholder="Select a date..." value="@ViewBag.FromDate">
+                                        <i class="icon-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">To Date</label>
+                                    <div class="prepend-icon">
+                                        <input type="text" name="ToDate" id="ToDate" class="date-picker form-control" placeholder="Select a date..." value="@ViewBag.ToDate">
+                                        <i class="icon-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group" style="margin-left:20px;margin-top:10px;">
+                                <button type="submit" class="btn btn-embossed btn-primary">Search</button>
+                                <button type="Reset" class="btn btn-embossed btn-primary" onclick="window.location.href='/MemberSearch'">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
+                        @{ decimal totalAmount = 0; }
                         <thead>
-                            <tr>        
-                                <th> Selected Package </th>    
+                            <tr>
+                                <th> Selected Package </th>
                                 <th> Package Start Date </th>
                                 <th> Package End Date </th>
                                 <th> Date of Payment </th>
@@ -30,11 +74,11 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>    
+                                <tr>
                                     <td>
-                                        @{ string PackageDetailsSelected = (item.PackageDetail.NumberOfMonth + "  " + item.PackageDetail.Pkg_Month + "  " + "Rs. " + item.PackageDetail.Pkg_Ammount+" "+item.PackageDetail.Pkg_Description); }                                   
+                                        @{ string PackageDetailsSelected = (item.PackageDetail.NumberOfMonth + "  " + item.PackageDetail.Pkg_Month + "  " + "Rs. " + item.PackageDetail.Pkg_Ammount + " " + item.PackageDetail.Pkg_Description); }
                                         @PackageDetailsSelected
-                                    </td>                                
+                                    </td>
                                     <td>
                                         @{ string PackageStartDate = String.Format("{0:dd/MM/yyyy}", item.PackageStartDate);}
                                         @PackageStartDate
@@ -74,16 +118,25 @@
                                     </td>
                                     <td>
                                         <h4>
-                                             <abbr title="Delete"><a href=""><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
-                                         </h4>
+                                            <abbr title="Delete"><a href=""><span class="glyphicon glyphicon-trash" style="color: red"></span></a></abbr>
+                                        </h4>
                                     </td>
                                 </tr>
+                                                totalAmount = (decimal)totalAmount + item.Paid_Amount ?? 0;
                                             }
+                            <tr>
+                                <td colspan="7" align="right" style="font-size:18px;">
+                                    <b>
+                                        Total Amount Collected: 
+                                        @totalAmount
+                                    Rs.</b>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                    @Html.PagedListPager(Model, page => Url.Action("MemberPayment", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("PaymentCollection", new { page }))
                 </div>
-                @Html.ActionLink("Back To List","MemberListForAdmin", "Admin")
+                @Html.ActionLink("Back To List", "MemberListForAdmin", "Admin")
                 <!-- /.table-responsive -->
             </div>
             <!-- /.panel-body -->
