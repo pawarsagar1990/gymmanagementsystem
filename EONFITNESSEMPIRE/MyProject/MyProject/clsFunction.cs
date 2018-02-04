@@ -26,7 +26,7 @@ namespace MyProject
         public IEnumerable<MemberRegistration> MemberListData()
         {
             string status = "YES";
-            List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+            List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).OrderByDescending(m=>m.ID).ToList();
             //List<MemberRegistration> mr = db.MemberRegistrations.ToList();
             return mr;
         }

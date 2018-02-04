@@ -1,12 +1,12 @@
 ﻿
 @model MyProject.Models.MemberRegistration
-    @using MyProject.Models;
-   
+@using MyProject.Models;
+
 @{
-        ViewBag.Title = "MemberRegistration";
+    ViewBag.Title = "MemberRegistration";
     Layout = "~/Views/Shared/AdminMaster.cshtml";
 }
-@{ 
+@{
     DbGymEntities db = new DbGymEntities();
     //List<PackageDetail> PackageDetails = db.PackageDetails.ToList();
     //List<SelectListItem> FinalName = new List<SelectListItem>();
@@ -34,13 +34,14 @@
     @using (Html.BeginForm("MemberRegistration", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
+        <div id="messageDiv" style="display:none;" class="alert alert-success" role="alert">
+            @if (ViewBag.Message != null)
+            {
 
-        if (ViewBag.Message != null)
-        {
-            <div class="alert alert-success" role="alert">
-                    @ViewBag.Message
-            </div>
-        }
+            <b>@ViewBag.Message</b>
+
+            }
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-info">
@@ -54,20 +55,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Member Name</label>
+                                            <label class="control-label">Member Name</label><span style="color:red;">*</span>
                                             <input class="form-control" name="MemberName" id="MemberName" type="text" placeholder="Enter MemberName">
                                             @Html.ValidationMessageFor(m => m.MemberName, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Email</label>
-                                            <input class="form-control" name="Email" id="Email" type="text" placeholder="Enter Email" onchange="UserCheck()">
+                                            <label class="control-label">Email</label><span style="color:red;">*</span>
+                                            <input class="form-control" name="Email" id="Email" type="text" placeholder="Enter Email">
                                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                            <div class="row">
-                                                <label class="col-sm-2"></label>
-                                                <div class="col-sm-10 text-danger">
-                                                    <p id="Status" />
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Password</label>
@@ -75,7 +70,7 @@
                                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Mobile No.</label>
+                                            <label class="control-label">Mobile No.</label><span style="color:red;">*</span>
                                             <input class="form-control" name="MobileNumber" id="MobileNumber" type="text" placeholder="Enter Mobile Number">
                                             @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
                                         </div>
@@ -106,7 +101,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">Date of Joining</label>
+                                            <label class="form-label">Date of Joining</label><span style="color:red;">*</span>
                                             <div class="prepend-icon">
                                                 <input type="text" name="DOJ" id="DOJ" class="date-picker form-control" placeholder="Select a date...">
                                                 <i class="icon-calendar"></i>
@@ -148,28 +143,28 @@
                                             @Html.ValidationMessageFor(m => m.EmergencyContactNumber, "", new { @class = "text-danger" })
                                         </div>
                                         @*<div class="form-group">
-                                            <label>Select Package</label>
-                                            @Html.DropDownList("Package_ID", FinalName, "Select Package", htmlAttributes: new { @class = "form-control" })
+                                                <label>Select Package</label>
+                                                @Html.DropDownList("Package_ID", FinalName, "Select Package", htmlAttributes: new { @class = "form-control" })
 
-                                            @Html.ValidationMessageFor(model => model.Package_ID, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Payment Type</label>
-                                            @Html.DropDownList("Payment_Type_ID", PaymentName, "Select Payment Type", htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Package_ID, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Payment Type</label>
+                                                @Html.DropDownList("Payment_Type_ID", PaymentName, "Select Payment Type", htmlAttributes: new { @class = "form-control" })
 
-                                            @Html.ValidationMessageFor(model => model.Payment_Type_ID, "", new { @class = "text-danger" })
+                                                @Html.ValidationMessageFor(model => model.Payment_Type_ID, "", new { @class = "text-danger" })
 
-                                        </div>*@
+                                            </div>*@
                                         @if (ViewBag.Roles != null)
                                         {
                                             <div class="form-group">
-                                                <label>Select User Role</label>
+                                                <label>Select User Role</label><span style="color:red;">*</span>
                                                 @Html.DropDownList("RolesForAll", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select User Role", htmlAttributes: new { @class = "form-control" })
                                             </div>
                                         }
                                     </div>
                                 </div>
-                               
+
                                 <div class="form-group">
                                     <p>
                                         <strong>Photo Upload</strong>
@@ -193,13 +188,13 @@
                                     @Html.ValidationMessageFor(m => m.Flag, "", new { @class = "text-danger" })
                                 </div>
                                 @*<div class="form-group">
-                                    <label class="control-label">Installment_Method</label>
-                                    <input class="form-control" name="Installment_Method" id="Installment_Method" type="text" placeholder="Enter Installment Method">
-                                    @Html.ValidationMessageFor(m => m.Installment_Method, "", new { @class = "text-danger" })
-                                </div>*@
+                                        <label class="control-label">Installment_Method</label>
+                                        <input class="form-control" name="Installment_Method" id="Installment_Method" type="text" placeholder="Enter Installment Method">
+                                        @Html.ValidationMessageFor(m => m.Installment_Method, "", new { @class = "text-danger" })
+                                    </div>*@
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-embossed btn-primary" onclick="return UserCheck();">Save</button>
-                                    <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                                    <button type="button" onclick="return validateRequireFields();" class="btn btn-embossed btn-primary">Save</button>
+                                    <button type="Reset" class="btn btn-embossed btn-primary" onclick="window.location.href = '/Admin/MemberRegistration'">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -207,38 +202,27 @@
                 </div>
             </div>
         </div>
-        <script>
-    function UserCheck() {
-        $("#Status").html("Checking...");
-        var Isemail = true;
-        $.post("@Url.Action("CheckUsernameAvailability", "Admin")",
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#messageDiv").html().trim() != "")
             {
-                userdata: $("#Email").val()
-            },
-        function (data,response) {
-            alert
-            if (data == 0) {
-                $("#Status").html('<font color="Green">Available !. you can take it.</font>');
-                $("#Email").css("border-color", "Green");
-                return Isemail;
-            }
-            else {
-                Isemail = false;
-                $("#Status").html('<font color="Red">That name is taken.Try Another.</font>');
-                $("#Email").css("border-color", "Red");
-                return Isemail;
+                $("#messageDiv").attr("style", "display:block;");
             }
         });
-        
-    }
-        </script>
-    }
-    @*.done(function (response, status, jqxhr) {
-    alert("Physical Assessment Successfully Added.");
-    window.location.href = '/Admin/PhysicalAssessment/@Session["ItemID"]'
-    })
-    .fail(function (jqxhr, status, error) {
-    // this is the ""error"" callback
-    })*@
+        function validateRequireFields() {
+            $("#messageDiv").attr("style", "display:block;");
+            if ($("#MemberName").val() != "" && $("#Email").val() != "" && $("#MobileNumber").val() != "" && $("#DOJ").val() != "" && $("#RolesForAll").val() != "") {
+                $("form").submit();
+                return true;
+            }
+            else {                
+                $("#messageDiv").html("<b>Please fill up all Required Fields (* fields)</b>");
+                $('body, html').animate({ scrollTop: $('html').offset().top }, 'slow');
+                return false;
+            }
+        }
+
+    </script>
 </body>
 </html>

@@ -56,7 +56,7 @@ namespace MyProject.Controllers
            
             int id = Convert.ToInt32(Session["ID"]);
             objcls.RenewListNotification();
-           // ViewBag.RenewMemberCount = objcls.RenewMemberCount();
+            ViewBag.RenewMemberCount = HttpContext.Session["RenewMemberCount"].ToString();
             string userrole = objcls.Roles();
             try
             {
@@ -121,11 +121,13 @@ namespace MyProject.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                string path = null;
+                string fname = null;
+                string em = mr.Email;
+                string validateEmailAndMobileNumber = this.validateEmailAndMobileNumber(mr.Email, mr.MobileNumber);
+                if (validateEmailAndMobileNumber == "")
                 {
-                    string path = null;
-                    string fname = null;
-                    string em = mr.Email;
+
 
                     if (mr.Flag == "YES") { mr.Flag = "YES"; } else { mr.Flag = "NO"; }
                     if (file != null && file.ContentLength > 0)
@@ -187,7 +189,6 @@ namespace MyProject.Controllers
                             db.Entry(userlogindata).State = System.Data.Entity.EntityState.Modified;
                             db.SaveChanges();
                             ModelState.Clear();
-
                         }
                         catch (Exception)
                         {
@@ -196,29 +197,27 @@ namespace MyProject.Controllers
                         }
 
                     ViewBag.Message = mr.MemberName + " : Successfully Registration";
-                    return View();
                 }
-                else { return View(mr); }
+                else { ViewBag.Message = validateEmailAndMobileNumber; }
+                return View();
             }
             catch (Exception ex)
-            {
+            { 
                 throw;
             }
         }
-        public JsonResult CheckUsernameAvailability(string userdata)
+
+        public string validateEmailAndMobileNumber(string memberEmailID, string memberMobileNumber)
         {
-            System.Threading.Thread.Sleep(200);
-            var SeachData = db.MemberRegistrations.Where(x => x.Email == userdata).FirstOrDefault();
-            if (SeachData != null)
+            string strResult = "";
+            if (db.MemberRegistrations.Where(m => m.Email.Equals(memberEmailID)).Count() > 0 || db.MemberRegistrations.Where(m => m.MobileNumber.Equals(memberMobileNumber)).Count() > 0)
             {
-                return Json(1);
-            }
-            else
-            {
-                return Json(0);
+                strResult = "Member Email-ID or Mobile Number already exists in system. Please use different Email-ID & Mobile Number.";
             }
 
+            return strResult;
         }
+
         public ActionResult MemberEditData(int id)
         {
             try
@@ -237,10 +236,11 @@ namespace MyProject.Controllers
         {
             try
             {
+                db.Entry(mr).State = System.Data.Entity.EntityState.Modified;
                 string path = null;
                 string fname = null;
                 if (file != null && file.ContentLength > 0)
-
+                {
                     try
                     {
                         var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
@@ -252,11 +252,22 @@ namespace MyProject.Controllers
                     {
                         throw;
                     }
-                mr.ProfilePic = fname;
-                db.Entry(mr).State = System.Data.Entity.EntityState.Modified;
+                    mr.ProfilePic = fname;
+                }
+                else
+                { db.Entry(mr).Property(x => x.ProfilePic).IsModified = false; }
+
+                db.Entry(mr).Property(x => x.MembershipID).IsModified = false;
+                db.Entry(mr).Property(x => x.MobileNumber).IsModified = false;
+                db.Entry(mr).Property(x => x.Email).IsModified = false;
+                db.Entry(mr).Property(x => x.Password).IsModified = false;
+
+                mr.CreatedBy = Session["UserName"].ToString();
+                mr.CreatedOn = DateTime.Now;
+
                 db.SaveChanges();
                 TempData["UpdateMemberData"] = mr.MemberName + "Successfully Updated!";
-                return RedirectToAction("MemberListForAdmin");
+                return RedirectToAction("MemberSearch");
             }
             catch (Exception)
             {
@@ -503,23 +514,7 @@ namespace MyProject.Controllers
 
                 throw;
             }
-        }
-        public ActionResult RenewMemberList(int? page)
-        {
-            try
-            {
-                //string status = "YES";
-                //List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
-                //DateTime today = DateTime.Today;
-                //DateTime sevenDaysEarlier = today.AddDays(-5);RenewListNotification()
-                return View((objcls.RenewListNotification()).ToPagedList(page ?? 1, 10));
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        }      
 
         [Authorize(Roles = "A")]
         public ActionResult MemberSearch(int? page)
@@ -550,20 +545,37 @@ namespace MyProject.Controllers
             try
             {
                 ///search area starts
-                string memberName = Request.QueryString["Name"] != null ? Request.QueryString["Name"] : "";
-                int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != ""? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
-               // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
-                string memberMobileNumber = Request.QueryString["MobileNumber"] != null ? Request.QueryString["MobileNumber"] : "";
-                List<MemberRegistration> mr = db.MemberRegistrations
-                    .Where(member => member.MemberName.Contains(memberName))
-                    .Where(member => member.MobileNumber.Contains(memberMobileNumber))
-                     // .Where(member => member.TransactionDetails.Where(m=>m.PackageDetails_PK_ID == memberSelectedPackage).FirstOrDefault())
-                    // .Where(member => member.TransactionDetails.Contains(Convert.ToString(memberSelectedPackage)))    
+                string memberName = collection["Name"] != null ? collection["Name"] : "";
+                int memberSelectedPackage = Convert.ToInt32(collection["PackageDetails_PK_ID"] != null && collection["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(collection["PackageDetails_PK_ID"]) : 0);
+                // int memberSelectedPackage = Request.QueryString["PackageDetails_PK_ID"] != null && Request.QueryString["PackageDetails_PK_ID"] != "" ? Convert.ToInt32(Request.QueryString["PackageDetails_PK_ID"]) : 0;
+                string memberMobileNumber = collection["MobileNumber"] != null ? collection["MobileNumber"] : "";
+                if (memberSelectedPackage > 0)
+                {
+                    var td = from trandetail in db.TransactionDetails
+                             where trandetail.PackageDetails_PK_ID == memberSelectedPackage
+                             group trandetail by trandetail.MemberRegistration_PK_ID into g
+                             select new { MemberId = g.Key, Date = g.Max(t => t.Payment_Date) };
 
-                    // .Where(member => member.Package_ID == memberSelectedPackage)
-                    .OrderByDescending(m => m.ID).ToList();
+                    var md = (from member in db.MemberRegistrations
+                              join t in td
+                              on member.ID equals t.MemberId
+                              orderby member.ID
+                              select member).ToList();
 
-                return View(mr.ToPagedList(page ?? 1, 10));
+                    var withMemberSearch = (from members in md
+                                            where members.MemberName.Contains(memberName) || members.MobileNumber.Contains(memberMobileNumber)                                            
+                                            select members).ToList();
+
+                    return View(withMemberSearch.ToPagedList(page ?? 1, 10));
+                }
+                else
+                {
+                    List<MemberRegistration> mr = db.MemberRegistrations
+                                        .Where(member => member.MemberName.Contains(memberName))
+                                        .Where(member => member.MobileNumber.Contains(memberMobileNumber))
+                                        .OrderByDescending(m => m.ID).ToList();
+                    return View(mr.ToPagedList(page ?? 1, 10));
+                }
             }
             catch (Exception)
             {
@@ -571,6 +583,123 @@ namespace MyProject.Controllers
             }
 
         }
-       
+
+        public ActionResult RenewMemberList(int? page)
+        {
+            try
+            {
+                int count = 0;
+                string status = "YES";
+                DateTime today = DateTime.Today;
+                List<MemberRegistration> lstdata = new List<MemberRegistration>();
+                List<MemberRegistration> mr = db.MemberRegistrations.Where(m => m.Flag.Equals(status)).ToList();
+                //List<TransactionDetail> data = db.TransactionDetails.ToList();
+                foreach (MemberRegistration item in mr)
+                {
+                    if (item != null && item.TransactionDetails.Count > 0)
+                    {
+                        int id = item.ID;
+                        // int TransactionID = data.
+
+                        TransactionDetail data = db.TransactionDetails.Where(m => m.MemberRegistration_PK_ID == id).OrderByDescending(o => o.TransactionDetailsID).FirstOrDefault();
+                        if (data != null)
+                        {
+                            DateTime dt = (DateTime)data.PackageEndDate;
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5 || (data.NextPaymentDate != null ? data.NextPaymentDate.Value.Subtract(DateTime.Now).TotalDays <= 5 : false))
+                            {
+                                int? DataID = data.MemberRegistration_PK_ID;
+                                MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
+                                lstdata.Add(lstmr);
+                                count++;
+                            }
+                        }
+                    }
+                }
+                //mr.TransactionDetails.Count > 0 ? mr.TransactionDetails.LastOrDefault().PackageDetails_PK_ID : 0;                
+                return View(lstdata.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        //public ActionResult deletefile()
+        //{
+        //    try
+        //    {
+        //        string filenamestart = "._";
+        //        string completePath = Server.MapPath("~/assets/" + filenamestart);
+
+        //        if (System.IO.File.Exists(completePath))
+        //        {
+
+        //            System.IO.File.Delete(completePath);
+        //        }
+        //        return View();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
+
+        [Authorize(Roles = "A")]
+        public ActionResult PaymentCollection(int? page)
+        {
+            try
+            {
+                //MemberRegistration mr = db.MemberRegistrations.FirstOrDefault();
+                List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails.OrderByDescending(m=>m.TransactionDetailsID).ToList();
+                ViewBag.FromDate = DateTime.Now.Date.AddMonths(-1).ToString("MM/dd/yyyy");
+                ViewBag.ToDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
+                ViewBag.MobileNumber = "";
+                return View(MemberTransactionDetails.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult PaymentCollection(int? page, FormCollection collection)
+        {
+            try
+            {
+                ///search area starts
+                DateTime fromDate = collection["FromDate"] != null && collection["FromDate"] != "" ? Convert.ToDateTime(collection["fromDate"].ToString()) : new DateTime();
+                DateTime toDate = collection["ToDate"] != null && collection["ToDate"] != "" ?  Convert.ToDateTime(collection["ToDate"].ToString()) : new DateTime();
+                string mobileNumber = collection["MobileNumber"].ToString();
+                ViewBag.MobileNumber = mobileNumber;
+
+                List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails
+                                        .Where(tran => tran.MobileNumber.Contains(mobileNumber)).OrderByDescending(m => m.TransactionDetailsID).ToList();
+
+                if (fromDate > new DateTime() && toDate > new DateTime())
+                {
+                    
+                    toDate = toDate.AddHours(23.59);
+                    MemberTransactionDetails = MemberTransactionDetails.Where(tran => tran.Payment_Date >= fromDate)
+                                        .Where(tran => tran.Payment_Date <= toDate).OrderByDescending(m => m.TransactionDetailsID)
+                                        .ToList();
+
+                    ViewBag.FromDate = fromDate.ToString("MM/dd/yyyy");
+                    ViewBag.ToDate = toDate.ToString("MM/dd/yyyy");
+                }
+                else
+                {
+                    ViewBag.FromDate = DateTime.Now.Date.AddMonths(-1).ToString("MM/dd/yyyy");
+                    ViewBag.ToDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
+                }                
+
+
+                return View(MemberTransactionDetails.ToPagedList(page ?? 1, MemberTransactionDetails.Count != 0 ? MemberTransactionDetails.Count: 1));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }
