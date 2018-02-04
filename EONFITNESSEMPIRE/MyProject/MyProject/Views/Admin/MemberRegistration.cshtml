@@ -60,8 +60,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input class="form-control" name="Email" id="Email" type="text" placeholder="Enter Email">
+                                            <input class="form-control" name="Email" id="Email" type="text" placeholder="Enter Email" onchange="UserCheck()">
                                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <label class="col-sm-2"></label>
+                                                <div class="col-sm-10 text-danger">
+                                                    <p id="Status" />
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Password</label>
@@ -192,7 +198,7 @@
                                     @Html.ValidationMessageFor(m => m.Installment_Method, "", new { @class = "text-danger" })
                                 </div>*@
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-embossed btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-embossed btn-primary" onclick="return UserCheck();">Save</button>
                                     <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
                                 </div>
                             </div>
@@ -201,6 +207,38 @@
                 </div>
             </div>
         </div>
+        <script>
+    function UserCheck() {
+        $("#Status").html("Checking...");
+        var Isemail = true;
+        $.post("@Url.Action("CheckUsernameAvailability", "Admin")",
+            {
+                userdata: $("#Email").val()
+            },
+        function (data,response) {
+            alert
+            if (data == 0) {
+                $("#Status").html('<font color="Green">Available !. you can take it.</font>');
+                $("#Email").css("border-color", "Green");
+                return Isemail;
+            }
+            else {
+                Isemail = false;
+                $("#Status").html('<font color="Red">That name is taken.Try Another.</font>');
+                $("#Email").css("border-color", "Red");
+                return Isemail;
+            }
+        });
+        
     }
+        </script>
+    }
+    @*.done(function (response, status, jqxhr) {
+    alert("Physical Assessment Successfully Added.");
+    window.location.href = '/Admin/PhysicalAssessment/@Session["ItemID"]'
+    })
+    .fail(function (jqxhr, status, error) {
+    // this is the ""error"" callback
+    })*@
 </body>
 </html>

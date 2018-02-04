@@ -121,24 +121,26 @@ namespace MyProject.Controllers
         {
             try
             {
-                string path = null;
-                string fname = null;
-                string em = mr.Email;
-                
-                if (mr.Flag == "YES") { mr.Flag = "YES"; } else { mr.Flag = "NO"; }
-                if (file != null && file.ContentLength > 0)
-                
-                    try
-                    {
-                        var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
-                        path = Path.Combine(Server.MapPath(@"~/Images/ProfilePic"), Path.GetFileName(fileName));
-                        fname = Path.GetFileName(fileName);
-                        file.SaveAs(path);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
-                    }
+                if (ModelState.IsValid)
+                {
+                    string path = null;
+                    string fname = null;
+                    string em = mr.Email;
+
+                    if (mr.Flag == "YES") { mr.Flag = "YES"; } else { mr.Flag = "NO"; }
+                    if (file != null && file.ContentLength > 0)
+
+                        try
+                        {
+                            var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                            path = Path.Combine(Server.MapPath(@"~/Images/ProfilePic"), Path.GetFileName(fileName));
+                            fname = Path.GetFileName(fileName);
+                            file.SaveAs(path);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
                     mr.ProfilePic = fname;
                     DateTime dt = DateTime.Now;
                     mr.CreatedOn = dt;
@@ -147,58 +149,75 @@ namespace MyProject.Controllers
                     db.SaveChanges();
                     // UserLogin required data save
                     MemberRegistration userlogindata = db.MemberRegistrations.Where(m => m.Email == em).FirstOrDefault();
-                if (userlogindata != null)
-                    try
-                    {
-                        UserLogin us = new UserLogin();
-                        us.MemberRegistration_PK_ID = userlogindata.ID;
-                        us.Mobile = userlogindata.MobileNumber;
-                        us.Email = userlogindata.Email;
-                        int LoginID = Convert.ToInt32(Session["ID"]);
-                        UserLogin userrole = db.UserLogins.Find(LoginID);
-                        if(userrole != null)
-                            try
-                            {
-                                if (userrole.UserRole == "A" || userrole.UserRole == "S")
+                    if (userlogindata != null)
+                        try
+                        {
+                            UserLogin us = new UserLogin();
+                            us.MemberRegistration_PK_ID = userlogindata.ID;
+                            us.Mobile = userlogindata.MobileNumber;
+                            us.Email = userlogindata.Email;
+                            int LoginID = Convert.ToInt32(Session["ID"]);
+                            UserLogin userrole = db.UserLogins.Find(LoginID);
+                            if (userrole != null)
+                                try
                                 {
-                                    us.UserRole = collection["RolesForAll"].ToString();
+                                    if (userrole.UserRole == "A" || userrole.UserRole == "S")
+                                    {
+                                        us.UserRole = collection["RolesForAll"].ToString();
+                                    }
+                                    else
+                                    {
+                                        us.UserRole = "U";
+                                    }
+
                                 }
-                                else
+                                catch (Exception)
                                 {
-                                    us.UserRole = "U";
+
+                                    throw;
                                 }
-                               
-                            }
-                            catch (Exception)
-                            {
 
-                                throw;
-                            }
-                        
-                        us.Flag = "YES";
-                        us.Password = userlogindata.Password;
-                        us.CreatedOn = dt;
-                        db.UserLogins.Add(us);
-                        db.SaveChanges();
-                        string MembershipID = "EON"+DateTime.Now.Year+userlogindata.ID;
-                        userlogindata.MembershipID = MembershipID;
-                        db.Entry(userlogindata).State = System.Data.Entity.EntityState.Modified;
-                        db.SaveChanges();
-                        ModelState.Clear();
-                    }
-                    catch (Exception)
-                    {
+                            us.Flag = "YES";
+                            us.Password = userlogindata.Password;
+                            us.CreatedOn = dt;
+                            db.UserLogins.Add(us);
+                            db.SaveChanges();
+                            string MembershipID = "EON" + DateTime.Now.Year + userlogindata.ID;
+                            userlogindata.MembershipID = MembershipID;
+                            db.Entry(userlogindata).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+                            ModelState.Clear();
 
-                        throw;
-                    }
-                    
-                ViewBag.Message = mr.MemberName + " : Successfully Registration";
-                return View();
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+
+                    ViewBag.Message = mr.MemberName + " : Successfully Registration";
+                    return View();
+                }
+                else { return View(mr); }
             }
             catch (Exception ex)
-            { 
+            {
                 throw;
             }
+        }
+        public JsonResult CheckUsernameAvailability(string userdata)
+        {
+            System.Threading.Thread.Sleep(200);
+            var SeachData = db.MemberRegistrations.Where(x => x.Email == userdata).FirstOrDefault();
+            if (SeachData != null)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+
         }
         public ActionResult MemberEditData(int id)
         {
@@ -552,25 +571,6 @@ namespace MyProject.Controllers
             }
 
         }
-        //public ActionResult deletefile()
-        //{
-        //    try
-        //    {
-        //        string filenamestart = "._";
-        //        string completePath = Server.MapPath("~/assets/" + filenamestart);
-
-        //        if (System.IO.File.Exists(completePath))
-        //        {
-
-        //            System.IO.File.Delete(completePath);
-        //        }
-        //        return View();
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+       
     }
 }

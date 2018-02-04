@@ -12,7 +12,9 @@ namespace MyProject.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
+   // [MetadataType(typeof(UserMetaData))]
     public partial class MemberRegistration
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,6 +29,8 @@ namespace MyProject.Models
         public int ID { get; set; }
         [Required(ErrorMessage = "Field can't empty")]
         public string MemberName { get; set; }
+
+       
         [Required(ErrorMessage = "Field can't empty")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Field can't empty")]
@@ -76,4 +80,9 @@ namespace MyProject.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
+    //class UserMetaData
+    //{
+    //    [Remote("IsUserExists", "Admin", ErrorMessage = "User Name already in use")]
+    //    public string Email { get; set; }
+    //}
 }
