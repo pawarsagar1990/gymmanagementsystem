@@ -172,6 +172,7 @@
     <EntitySetMapping Name="TransactionDetails">
       <EntityTypeMapping TypeName="DbGymModel.TransactionDetail">
         <MappingFragment StoreEntitySet="TransactionDetail">
+          <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
           <ScalarProperty Name="Description" ColumnName="Description" />

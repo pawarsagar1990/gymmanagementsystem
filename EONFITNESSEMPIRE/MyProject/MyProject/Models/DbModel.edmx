@@ -147,6 +147,7 @@
           <Property Name="PaymentType" Type="nvarchar" MaxLength="15" />
           <Property Name="Paid_Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Due_Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Discount_Amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="NextPaymentDate" Type="datetime" />
           <Property Name="Advance_Amount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalPackagePayment" Type="decimal" Precision="18" Scale="2" />
@@ -708,6 +709,7 @@
           <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MemberRegistration" Relationship="DbGymModel.FK_TransactionDetails_MemberRegistration" FromRole="TransactionDetail" ToRole="MemberRegistration" />
           <NavigationProperty Name="PackageDetail" Relationship="DbGymModel.FK_TransactionDetails_PackageDetails" FromRole="TransactionDetail" ToRole="PackageDetail" />
+          <Property Name="Discount_Amount" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="FK_TransactionDetails_MemberRegistration">
           <End Type="DbGymModel.MemberRegistration" Role="MemberRegistration" Multiplicity="0..1" />
@@ -910,6 +912,7 @@
           <EntitySetMapping Name="TransactionDetails">
             <EntityTypeMapping TypeName="DbGymModel.TransactionDetail">
               <MappingFragment StoreEntitySet="TransactionDetail">
+                <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

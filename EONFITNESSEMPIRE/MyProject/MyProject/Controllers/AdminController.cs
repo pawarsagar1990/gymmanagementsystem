@@ -575,7 +575,7 @@ namespace MyProject.Controllers
                         if (data != null)
                         {
                             DateTime dt = (DateTime)data.PackageEndDate;
-                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5)
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5 || (data.NextPaymentDate != null ? data.NextPaymentDate.Value.Subtract(DateTime.Now).TotalDays <= 5 : false))
                             {
                                 int? DataID = data.MemberRegistration_PK_ID;
                                 MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
@@ -613,5 +613,63 @@ namespace MyProject.Controllers
         //        throw;
         //    }
         //}
+
+        [Authorize(Roles = "A")]
+        public ActionResult PaymentCollection(int? page)
+        {
+            try
+            {
+                //MemberRegistration mr = db.MemberRegistrations.FirstOrDefault();
+                List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails.ToList();
+                ViewBag.FromDate = DateTime.Now.Date.AddMonths(-1).ToString("MM/dd/yyyy");
+                ViewBag.ToDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
+                ViewBag.MobileNumber = "";
+                return View(MemberTransactionDetails.ToPagedList(page ?? 1, 10));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult PaymentCollection(int? page, FormCollection collection)
+        {
+            try
+            {
+                ///search area starts
+                DateTime fromDate = collection["FromDate"] != null && collection["FromDate"] != "" ? Convert.ToDateTime(collection["fromDate"].ToString()) : new DateTime();
+                DateTime toDate = collection["ToDate"] != null && collection["ToDate"] != "" ?  Convert.ToDateTime(collection["ToDate"].ToString()) : new DateTime();
+                string mobileNumber = collection["MobileNumber"].ToString();
+                ViewBag.MobileNumber = mobileNumber;
+
+                List<TransactionDetail> MemberTransactionDetails = db.TransactionDetails
+                                        .Where(tran => tran.MobileNumber.Contains(mobileNumber)).ToList();
+
+                if (fromDate > new DateTime() && toDate > new DateTime())
+                {
+                    
+                    toDate = toDate.AddHours(23.59);
+                    MemberTransactionDetails = MemberTransactionDetails.Where(tran => tran.Payment_Date >= fromDate)
+                                        .Where(tran => tran.Payment_Date <= toDate)
+                                        .ToList();
+
+                    ViewBag.FromDate = fromDate.ToString("MM/dd/yyyy");
+                    ViewBag.ToDate = toDate.ToString("MM/dd/yyyy");
+                }
+                else
+                {
+                    ViewBag.FromDate = DateTime.Now.Date.AddMonths(-1).ToString("MM/dd/yyyy");
+                    ViewBag.ToDate = DateTime.Now.Date.ToString("MM/dd/yyyy");
+                }                
+
+
+                return View(MemberTransactionDetails.ToPagedList(page ?? 1, MemberTransactionDetails.Count));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

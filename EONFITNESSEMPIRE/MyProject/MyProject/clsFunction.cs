@@ -83,7 +83,7 @@ namespace MyProject
                         if(data != null)
                         {
                             DateTime pkgEndDate = (DateTime)data.PackageEndDate;
-                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5)
+                            if (data.PackageEndDate.Value.Subtract(DateTime.Now).TotalDays <= 5 || (data.NextPaymentDate != null ? data.NextPaymentDate.Value.Subtract(DateTime.Now).TotalDays <= 5 : false))
                             {
                                 int? DataID = data.MemberRegistration_PK_ID;
                                 MemberRegistration lstmr = db.MemberRegistrations.Where(m => m.ID == DataID).FirstOrDefault();
