@@ -23,6 +23,7 @@
         @ViewBag.Message
     </div>
     }
+    <div id="errorDiv" style="display:none;" class="alert alert-success" role="alert"></div>
     <div class="row">
         <div class="col-md-12">
                     <div class="panel panel-info">
@@ -42,18 +43,18 @@
                                                 <input class="form-control" readonly name="Name" id="Name" value="@ViewBag.Name" placeholder="Enter Name">                                                
                                             </div>
                                             <div class="form-group">
-                                                <label>Select Package</label>
+                                                <label>Select Package</label><span style="color:red;">*</span>
                                                 @Html.DropDownList("PackageDetails_PK_ID", FinalName, "Select Package", htmlAttributes: new { @class = "form-control" })                                                
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label">Package Start Date</label>
+                                                <label class="form-label">Package Start Date</label><span style="color:red;">*</span>
                                                 <div class="prepend-icon">
                                                     <input type="text" name="PackageStartDate" id="PackageStartDate" class="date-picker form-control" placeholder="Select a date...">
                                                     <i class="icon-calendar"></i>                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label">Package End Date</label>
+                                                <label class="form-label">Package End Date</label><span style="color:red;">*</span>
                                                 <div class="prepend-icon">
                                                     <input type="text" name="PackageEndDate" id="PackageEndDate" class="date-picker form-control" placeholder="Select a date...">
                                                     <i class="icon-calendar"></i>
@@ -61,7 +62,7 @@
                                             </div>     
                                             <div class="form-group" style="margin-top:40px;">
                                                 <button type="submit" class="btn btn-embossed btn-primary">Make Payment</button>
-                                                <button type="Reset" class="btn btn-embossed btn-primary">Cancel</button>
+                                                <button type="Reset" class="btn btn-embossed btn-primary" onclick="window.location.href = '/Admin/MemberPayment/@ViewBag.MemberID'">Cancel</button>
                                             </div>                                                                                
                                         </div>
                                         <div class="col-md-6">
@@ -70,7 +71,7 @@
                                                 <input class="form-control" type="number" readonly="readonly" name="MobileNumber" id="MobileNumber" value="@ViewBag.Mobile" placeholder="Enter Month or Year">                                                
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Paying Amount</label>
+                                                <label class="control-label">Paying Amount</label><span style="color:red;">*</span>
                                                 <input class="form-control" type="number" name="Paid_Amount" id="Paid_Amount" placeholder="Enter Paying Amount">                                                
                                             </div>
                                             <div class="form-group">
@@ -110,17 +111,37 @@
                     $("#AddData").on('submit', function (e) {
 
                         e.preventDefault();
-                        var $this = $(this);
-                        var dataToPost = $(this).serialize();
+                        if (validateRequiredFields())
+                        {
+                            var $this = $(this);
+                            var dataToPost = $(this).serialize();
 
-                        $.post("/Admin/SaveMemberPayment", dataToPost)
-                            .done(function (response, status, jqxhr) {
-                                alert("Member Payment Successfully Added.");
-                                window.location.href = '/Admin/MemberPayment/@ViewBag.MemberID';
-                            })
-                            .fail(function (jqxhr, status, error) {
-                                // this is the ""error"" callback
-                            });
+                            $.post("/Admin/SaveMemberPayment", dataToPost)
+                                .done(function (response, status, jqxhr) {
+                                    alert("Member Payment Successfully Added.");
+                                    window.location.href = '/Admin/MemberPayment/@ViewBag.MemberID';
+                                })
+                                .fail(function (jqxhr, status, error) {
+                                    // this is the ""error"" callback
+                                });
+                        }                        
                     });
                 });
+        
+                function validateRequiredFields()
+                {
+                    if ($("#PackageStartDate").val() != "" && $("#PackageEndDate").val() != "" && $("#Paid_Amount").val() != "" && $("#PackageDetails_PK_ID").val() != "") {
+                        return true;
+                    }
+                    else {
+                        $("#errorDiv").attr("style","display:block;");
+                        $("#errorDiv").html("<b>Please fill up all Required Fields (* fields)</b>");
+                        $('body, html').animate({ scrollTop: $('html').offset().top }, 'slow');
+                        return false;
+
+                    }
+                }
+
+
+
             </script>
