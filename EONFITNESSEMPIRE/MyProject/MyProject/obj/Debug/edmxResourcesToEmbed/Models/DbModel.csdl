@@ -348,6 +348,7 @@
     <NavigationProperty Name="MemberRegistration" Relationship="DbGymModel.FK_TransactionDetails_MemberRegistration" FromRole="TransactionDetail" ToRole="MemberRegistration" />
     <NavigationProperty Name="PackageDetail" Relationship="DbGymModel.FK_TransactionDetails_PackageDetails" FromRole="TransactionDetail" ToRole="PackageDetail" />
     <Property Name="Discount_Amount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_TransactionDetails_MemberRegistration">
     <End Type="DbGymModel.MemberRegistration" Role="MemberRegistration" Multiplicity="0..1" />

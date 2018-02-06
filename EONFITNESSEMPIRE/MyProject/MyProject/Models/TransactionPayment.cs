@@ -11,15 +11,13 @@ namespace MyProject.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TransactionPayment
     {
         public int ID { get; set; }
         public Nullable<int> MemberRegistration_PK_ID { get; set; }
         public Nullable<int> PaymentDetails_PK_ID { get; set; }
         public Nullable<System.DateTime> Payment_Date { get; set; }
-       // [Required(ErrorMessage = "Field can't empty")]
         public string MobileNumber { get; set; }
         public string PaymentType { get; set; }
         public string Paid_Amount { get; set; }
@@ -28,7 +26,7 @@ namespace MyProject.Models
         public string Description { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
-        
+    
         public virtual MemberRegistration MemberRegistration { get; set; }
         public virtual PaymentDetail PaymentDetail { get; set; }
     }

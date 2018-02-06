@@ -154,6 +154,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="PaymentMode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TransactionPayment">
           <Key>
@@ -710,6 +711,7 @@
           <NavigationProperty Name="MemberRegistration" Relationship="DbGymModel.FK_TransactionDetails_MemberRegistration" FromRole="TransactionDetail" ToRole="MemberRegistration" />
           <NavigationProperty Name="PackageDetail" Relationship="DbGymModel.FK_TransactionDetails_PackageDetails" FromRole="TransactionDetail" ToRole="PackageDetail" />
           <Property Name="Discount_Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_TransactionDetails_MemberRegistration">
           <End Type="DbGymModel.MemberRegistration" Role="MemberRegistration" Multiplicity="0..1" />
@@ -912,6 +914,7 @@
           <EntitySetMapping Name="TransactionDetails">
             <EntityTypeMapping TypeName="DbGymModel.TransactionDetail">
               <MappingFragment StoreEntitySet="TransactionDetail">
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
                 <ScalarProperty Name="Discount_Amount" ColumnName="Discount_Amount" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />

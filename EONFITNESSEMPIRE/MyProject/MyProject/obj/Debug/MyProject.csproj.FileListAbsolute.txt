@@ -108,3 +108,40 @@ F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\S
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.dll
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.pdb
 F:\Praful Project\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.csprojResolveAssemblyReference.cache
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\MyProject.dll.config
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\MyProject.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\MyProject.pdb
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\Antlr3.Runtime.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\EntityFramework.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\EntityFramework.SqlServer.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\Microsoft.Web.Infrastructure.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\Newtonsoft.Json.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\PagedList.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\PagedList.Mvc.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Net.Http.Formatting.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Http.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Http.WebHost.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Mvc.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Optimization.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Providers.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Razor.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Deployment.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Razor.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\WebGrease.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\EntityFramework.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\EntityFramework.SqlServer.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\PagedList.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\PagedList.Mvc.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\Newtonsoft.Json.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Net.Http.Formatting.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Http.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Http.WebHost.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Mvc.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.Razor.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Deployment.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\bin\System.Web.WebPages.Razor.xml
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.csprojResolveAssemblyReference.cache
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.dll
+D:\SP_Projects\gymmanagementsystem\EONFITNESSEMPIRE\MyProject\MyProject\obj\Debug\MyProject.pdb

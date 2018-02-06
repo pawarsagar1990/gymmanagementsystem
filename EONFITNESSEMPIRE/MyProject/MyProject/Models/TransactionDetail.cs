@@ -31,6 +31,7 @@ namespace MyProject.Models
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<decimal> Discount_Amount { get; set; }
+        public string PaymentMode { get; set; }
     
         public virtual MemberRegistration MemberRegistration { get; set; }
         public virtual PackageDetail PackageDetail { get; set; }

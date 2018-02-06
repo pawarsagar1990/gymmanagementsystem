@@ -11,10 +11,19 @@
     DbGymEntities db = new DbGymEntities();
     List<PackageDetail> PackageDetails = db.PackageDetails.ToList();
     List<SelectListItem> FinalName = new List<SelectListItem>();
+
     foreach (PackageDetail item in PackageDetails)
     {
         FinalName.Add(new SelectListItem { Text = item.NumberOfMonth + "  " + item.Pkg_Month + "  " + "Rs. " + item.Pkg_Ammount + " " + item.Pkg_Description, Value = item.ID.ToString(), Selected = (Convert.ToString(ViewBag.SelectedPackage) == Convert.ToString(item.ID)) });
     }
+
+    List<SelectListItem> ModeOfPayment = new List<SelectListItem>();
+    ModeOfPayment.Add(new SelectListItem { Text = "Cash", Selected = true, Value= "Cash" });
+    ModeOfPayment.Add(new SelectListItem { Text = "Card", Value = "Card" });
+    ModeOfPayment.Add(new SelectListItem { Text = "Cheque", Value = "Cheque" });
+    ModeOfPayment.Add(new SelectListItem { Text = "Paytm", Value = "Paytm" });
+    ModeOfPayment.Add(new SelectListItem { Text = "Online", Value = "Online" });
+    ModeOfPayment.Add(new SelectListItem { Text = "Other", Value = "Other" });
 }
     @Html.ValidationSummary(true)
     @if (ViewBag.Message != null)
@@ -89,7 +98,10 @@
                                                 <label class="control-label">Discount Amount</label>
                                                 <input class="form-control" type="number" name="Discount_Amount" id="Discount_Amount" placeholder="Enter Discount Amount">
                                             </div>                                        
-                                            
+                                            <div class="form-group">
+                                                <label class="control-label">Mode of Payment</label>
+                                                @Html.DropDownList("PaymentMode", ModeOfPayment, "", htmlAttributes: new { @class = "form-control" })        
+                                            </div>  
                                         </div>
 
                                     </div>

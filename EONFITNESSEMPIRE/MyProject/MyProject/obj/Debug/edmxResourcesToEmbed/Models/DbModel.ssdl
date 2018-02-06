@@ -149,6 +149,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="50" />
     <Property Name="CreatedOn" Type="datetime" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+    <Property Name="PaymentMode" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="TransactionPayment">
     <Key>
